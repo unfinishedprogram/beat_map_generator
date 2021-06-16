@@ -1,16 +1,10 @@
 # Beatmap Generator
 
 ## Requirements
+
 This project is made using typescript and compiled to nodeJS
 
 Recompile the project by running ```tsc``` in the root directory: 
-
-## Usage
-To generate a beatmap, make sure you are the same directory as `makebeatmap.sh` and run the script
-
-`makebeatmap.sh` takes any number of strings, each representing a set of filters used for level generation.
-
-It will generate a zipped and unzipped version of each set of filters, and place them into the `map_output/` directory
 
 ### Installing Dependancies:
 
@@ -19,6 +13,13 @@ All dependancies can be installed by running this in the project directory.
 ```bash
 npm install
 ```
+
+## Usage
+To generate a beatmap, make sure you are the same directory as `makebeatmap.sh` and run the script
+
+`makebeatmap.sh` takes any number of strings, each representing a set of filters used for level generation.
+
+It will generate a zipped and unzipped version of each set of filters, and place them into the `map_output/` directory
 
 
 ### Example:
