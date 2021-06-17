@@ -35,9 +35,11 @@ bash makebeatmapAsync.sh "hand11-target1111111111-wall000-duration1-rate2-visdis
 ## Performance Benchmark:
 
 
-This will make a beatmap for every possible combination of note placement, all other filters will be consistant
+This will make a beatmap for every possible combination of note placement (1024 beatmaps in total)
 
 **_Running this can take some time to compleate, and will generate 4GB of files_**
+
+**_This script uses up to 16GB of memory during execution, and could become very slow or crash if ran on a machine with under 16GB of allocation avalible_**
 
 ```bash
 bash makebeatmapAsync.sh $(cat file_names.txt)
@@ -59,4 +61,5 @@ bash makebeatmapAsync.sh $(cat file_names.txt)
 ## TODO
  - Implement distribution option
  - Make beats more lively by creating preset
- - Figure out how to remove the need for duplicating image and song for each map.
+ - Figure out how to remove the need for duplicating image and song for each map
+ - Benchmark generation to determine feasibility of realtime generation upon request server-side
