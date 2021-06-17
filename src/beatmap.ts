@@ -1,8 +1,10 @@
+import { CompileInfoJSON } from "./compileInfoJson";
+import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, ILevelParams, strParamsToLevelParams } from "./ILevelParams";
-import { createInfoDat } from "./InfoDat";
-import { createLevelDat } from "./levelDat";
 import { NoteData } from "./level_obj/notedata";
 import { ObstacleData } from "./level_obj/obstacledata";
+import { def_rate, def_targets } from "./peramiter_defs";
+import { shuffleArray } from "./util";
 
 const bar_size_mapping = [8, 6, 4, 2, 1]
 export class BeatMap{
@@ -11,9 +13,13 @@ export class BeatMap{
   len_in_beats: number;
   len_in_bars: number;
 
-  bar_size: number;
 
-  possible_note_pos_list: number[];
+  // ConvertedPeramiters:
+  rate: number; // Beats between notes
+  enabled_targets: number[];
+
+
+
   shuffled_note_positions_list: number[];
 
   shuffled_hand_list: number[];
@@ -36,63 +42,43 @@ export class BeatMap{
     
     // Calculating the total number of beats in the song
     
-    this.bar_size = bar_size_mapping[this.params.rate];
+    
+
+    // Initalizing paramaters
+    this.rate = def_rate(this.params.rate);
+    this.enabled_targets = def_targets(this.params.targets)
 
     this.len_in_beats = Math.floor(100 * (this.params.duration / 60));
     
 
-    this.len_in_bars = Math.floor(this.len_in_beats / this.bar_size);
+    this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
 
     this.current_len_in_bars = 0;
     this.current_len_in_beats = 0;
-
-
-    this.possible_note_pos_list = this.getPossibleNotePositions(this.params.targets);
   
-    this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.possible_note_pos_list);
+    this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_targets);
     this.shuffled_hand_list = this.getShuffledList(this.len_in_bars, [[0], [1], [0, 1]][this.params.hand])
-    
     
 
     this.notes = this.generateNotes();
-  }
-
-  getPossibleNotePositions(targets: boolean[]) {
-    let posList = [];
-    for (let i = 0; i < targets.length; i++)
-      if (targets[i]) posList.push(i);
-    return posList;
   }
 
   getShuffledList(length: number, arr: any[]) {
     let newArr = [] as number[];
     
     while (newArr.length < length) {
-      newArr = newArr.concat(this.shuffle(arr))
+      newArr = newArr.concat(shuffleArray(arr))
     }
     return newArr;
-  }
-
-  shuffle(arr: any[]) {
-    let currentIndex = arr.length;
-    let randomIndex = 0;
-    
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
-    }
-    return arr;
   }
 
   generateNotes() {
     let notes = []
     // Starting at 1, so we dont spawn an impossible note on the zeroth bar
     for (let i = 1; i < this.len_in_bars; i++){
-      let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
+      let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
       notes.push(new NoteData(
-        this.bar_size * i + randomVariationOffset,
+        this.rate * i + randomVariationOffset,
         this.shuffled_note_positions_list[i],
         this.shuffled_hand_list[i] as 1 | 0
       ));
@@ -100,10 +86,10 @@ export class BeatMap{
     return notes;
   }
 
-  makeLevelJson() {
+  getBeatmapJson() {
     return {
-      levelDat: createLevelDat(this.notes.map((note) => note.toJson())),
-      infoDat: createInfoDat("song" + this.params.song, this.file_name, 100)
+      level: compileLevelJSON(this.notes.map((note) => note.toJson())),
+      info: CompileInfoJSON("song" + this.params.song, this.file_name, 100)
     }
   }
 }

@@ -1,4 +1,4 @@
-export function createInfoDat(name:string, sub_name:string, beats_per_minute:number) {
+export function CompileInfoJSON(name:string, sub_name:string, beats_per_minute:number) {
   return {
     "_version": "2.0.0",
     "_songName": name,

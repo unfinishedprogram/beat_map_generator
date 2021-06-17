@@ -8,7 +8,7 @@ export type LevelData = {
   "_obstacles": ObstacleData[],
 }
 
-export function createLevelDat(notes?: any[], obstacles?: any[], events?: any[]) {
+export function compileLevelJSON(notes?: any[], obstacles?: any[], events?: any[]) {
   return {
     _version: "2.0.0",
     _notes: (notes) ? notes : [],

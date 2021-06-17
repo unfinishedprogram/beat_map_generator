@@ -71,7 +71,7 @@ console.log("---------------------")
 console.log("Creating beatmap object...");
 
 let map = new BeatMap(song_string);
-let level_data = map.makeLevelJson()
+let level_data = map.getBeatmapJson()
 
 console.log("Creating direcotry structure...");
 let song_dir = out_dir + "/" + song_string;
@@ -86,8 +86,8 @@ fs.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg")
 
 console.log("Writing .dat files...")
 
-fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.infoDat, null, 4))
-fs.writeFileSync(song_dir + "/Easy.dat", JSON.stringify(level_data.levelDat, null, 4))
+fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4))
+fs.writeFileSync(song_dir + "/Easy.dat", JSON.stringify(level_data.level, null, 4))
 
 console.log("Compressing to archive...")
 
