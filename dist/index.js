@@ -8,6 +8,7 @@ var beatmap_1 = require("./beatmap");
 var fs_1 = __importDefault(require("fs"));
 var archiver = require('archiver');
 var process_1 = require("process");
+var util_1 = require("./util");
 function zipDirectory(source, out) {
     var archive = archiver('zip', { zlib: { level: 9 } });
     var stream = fs_1.default.createWriteStream(out);
@@ -33,27 +34,10 @@ var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-ra
 var song_string = args[0];
 var template_dir = args[1];
 var out_dir = args[2];
-if (regex.test(song_string))
-    console.log("song string is valid:", true);
-else {
-    console.log("song string is valid:", false);
-    console.log("exiting...");
-    process_1.exit();
-}
-if (fs_1.default.existsSync(template_dir))
-    console.log("template dir exists:", true);
-else {
-    console.log("template dir exists:", false);
-    console.log("exiting...");
-    process_1.exit();
-}
-if (fs_1.default.existsSync(out_dir))
-    console.log("output dir exists:", true);
-else {
-    console.log("output dir exists:", false);
-    console.log("exiting...");
-    process_1.exit();
-}
+console.log("---------------------");
+util_1.test("song string is valid:", regex.test(song_string), undefined, function () { return process_1.exit(); });
+util_1.test("template dir exists:", fs_1.default.existsSync(template_dir), undefined, function () { return process_1.exit(); });
+util_1.test("output dir exists:", fs_1.default.existsSync(out_dir), undefined, function () { return process_1.exit(); });
 console.log("---------------------");
 console.log("Creating beatmap object...");
 var map = new beatmap_1.BeatMap(song_string);

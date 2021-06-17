@@ -5,6 +5,7 @@ import { BeatMap } from "./beatmap"
 import fs from "fs";
 const archiver = require('archiver');
 import { exit } from "process";
+import { test } from "./util";
 
 function zipDirectory(source: string, out: string) {
   const archive = archiver('zip', { zlib: { level: 9 }});
@@ -42,32 +43,15 @@ let template_dir = args[1]
 let out_dir = args[2]
 
 
-if (regex.test(song_string)) 
-  console.log("song string is valid:", true)
-else {
-  console.log("song string is valid:", false)
-  console.log("exiting...")
-  exit()
-}
-  
 
-if (fs.existsSync(template_dir))
-  console.log("template dir exists:", true)
-else {
-  console.log("template dir exists:", false)
-  console.log("exiting...")
-  exit()
-}
-if (fs.existsSync(out_dir))
-  console.log("output dir exists:", true)
-else {
-  console.log("output dir exists:", false)
-  console.log("exiting...")
-  exit()
-}
+
 console.log("---------------------")
-  
 
+test("song string is valid:", regex.test(song_string),undefined, () => exit());
+test("template dir exists:", fs.existsSync(template_dir),undefined, () => exit());
+test("output dir exists:", fs.existsSync(out_dir),undefined, () => exit());
+
+console.log("---------------------")
 console.log("Creating beatmap object...");
 
 let map = new BeatMap(song_string);

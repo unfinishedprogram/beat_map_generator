@@ -47,5 +47,5 @@ bash makebeatmap.sh $(cat file_names.txt)
 |duration| yes  |       |
 | rate   | yes  | rate changes the number of beats between each note, not the BPM |
 |distribution|no|       |
-| rhythm | yes  |!tested|
+| rhythm | yes  |       |
 | song   | no   |       |

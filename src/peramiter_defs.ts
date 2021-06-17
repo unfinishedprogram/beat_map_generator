@@ -18,7 +18,9 @@ export const def_targets = (param: boolean[]) => {
 }
 
 // Defines the notes in game position given there binary index
-export const def_note_position = (param: number):[ 0 | 1 | 2 | 3, 0 | 1 | 2] => {
+export const def_note_position = (param: number): [
+  0 | 1 | 2 | 3,
+  0 | 1 | 2] => {
   switch (param) {
     case 0: return [0, 2];
     case 1: return [1, 2];

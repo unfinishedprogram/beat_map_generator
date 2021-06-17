@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shuffleArray = void 0;
+exports.test = exports.shuffleArray = void 0;
 function shuffleArray(arr) {
     var _a;
     var currentIndex = arr.length;
@@ -13,3 +13,13 @@ function shuffleArray(arr) {
     return arr;
 }
 exports.shuffleArray = shuffleArray;
+function test(print, test, pass, fail) {
+    console.log(print, test);
+    if (test) {
+        if (pass)
+            pass();
+    }
+    else if (fail)
+        fail();
+}
+exports.test = test;
