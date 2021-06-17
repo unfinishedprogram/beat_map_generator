@@ -1,0 +1,2 @@
+hand11-target1110010000-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010001-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1

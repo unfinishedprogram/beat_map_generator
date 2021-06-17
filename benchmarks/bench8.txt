@@ -1,0 +1,8 @@
+hand11-target1110010000-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010001-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010010-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010011-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010100-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010101-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010110-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
+hand11-target1110010111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
