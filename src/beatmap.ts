@@ -65,7 +65,7 @@ export class BeatMap{
 
   getShuffledList(length: number, arr: any[]) {
     let newArr = [] as number[];
-    
+    if (arr.length < 1) return newArr;
     while (newArr.length < length) {
       newArr = newArr.concat(shuffleArray(arr))
     }
@@ -74,6 +74,7 @@ export class BeatMap{
 
   generateNotes() {
     let notes = []
+
     // Starting at 1, so we dont spawn an impossible note on the zeroth bar
     for (let i = 1; i < this.len_in_bars; i++){
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;

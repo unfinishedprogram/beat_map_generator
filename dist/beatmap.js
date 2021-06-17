@@ -29,6 +29,8 @@ var BeatMap = /** @class */ (function () {
     }
     BeatMap.prototype.getShuffledList = function (length, arr) {
         var newArr = [];
+        if (arr.length < 1)
+            return newArr;
         while (newArr.length < length) {
             newArr = newArr.concat(util_1.shuffleArray(arr));
         }

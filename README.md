@@ -4,9 +4,9 @@
 
 This project is made using typescript and compiled to nodeJS
 
-Recompile the project by running ```tsc``` in the root directory: 
+Recompile the project by running `tsc` in the root directory: 
 
-### Installing Dependancies:
+### Installing Dependancies
 
 All dependancies can be installed by running this in the project directory.
 
@@ -29,23 +29,28 @@ bash makebeatmap.sh "hand11-target1111111111-wall000-duration1-rate2-visdistance
 ```
 
 ## Performance Benchmark:
-! Warning, running this can take upwards of 5 minutes to compleate, and will generate 1024 beatmap files. !
+
 
 This will make a beatmap for every possible combination of note placement, all other filters will be consistant
 
+**_Running this can take upwards of 5 minutes to compleate, and will generate 4GB of files_**
 ```bash
 bash makebeatmap.sh $(cat file_names.txt)
 ```
 
 ## Current filter support
 
-| option | done | notes |
-| ------:| :--: | ----- |
-| hand   | yes  | Currently not taking into account left and right position, only color/hand |
-| target | yes  |       |
-| wall   | no   |       |
-|duration| yes  |       |
-| rate   | yes  | rate changes the number of beats between each note, not the BPM |
-|distribution|no|       |
-| rhythm | yes  |       |
-| song   | no   |       |
+|       option | done  | notes                                                                      |
+| -----------: | :---: | -------------------------------------------------------------------------- |
+|         hand |  yes  | Currently not taking into account left and right position, only color/hand |
+|       target |  yes  |                                                                            |
+|         wall |  no   |                                                                            |
+|     duration |  yes  |                                                                            |
+|         rate |  yes  | rate changes the number of beats between each note, not the BPM            |
+| distribution |  no   |                                                                            |
+|       rhythm |  yes  |                                                                            |
+|         song |  no   |                                                                            |
+
+## TODO
+ - Implement distribution option
+ - Make beats more lively by creating preset
