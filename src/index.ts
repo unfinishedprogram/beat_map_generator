@@ -1,30 +1,11 @@
-const testname = "hand11-target0001010010-wall000-duration1-rate1-visdistance2-distribution1-rhythm1-song1";
-
-import { BeatMap } from "./beatmap"
-
-import fs from "fs";
-const archiver = require('archiver');
 import { exit } from "process";
-import { test } from "./util";
-
-function zipDirectory(source: string, out: string) {
-  const archive = archiver('zip', { zlib: { level: 9 }});
-  const stream = fs.createWriteStream(out);
-
-  return new Promise((resolve, reject) => {
-    archive
-      .directory(source, false)
-      .on('error', (err: any) => reject(err))
-      .pipe(stream)
-    ;
-
-    stream.on('close', () => resolve(undefined));
-    archive.finalize();
-  });
-}
+import { test, zipDirectory} from "./util";
+import { BeatMap } from "./beatmap"
+import fs from "fs";
 
 const args = process.argv.slice(2)
 
+// Input validation
 if (!(args.length >= 3)) {
   console.log("3 arguments required,", args.length, "arguments given")
   console.log("[beat_map_string] [directory containing cover and song] [outdir]")
@@ -32,13 +13,12 @@ if (!(args.length >= 3)) {
   console.log('"hand11-target0001010010-wall000-duration1-rate1-visdistance2-distribution1-rhythm1-song1" ~/files/map_template ~/files/output_maps')
   exit()
 }
+
 // Disable logging if flag is false
 if (!args[4]) console.log = () => { };
   
 
 let regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$")
-
-// Input validation
 
 let song_string = args[0]
 let template_dir = args[1]

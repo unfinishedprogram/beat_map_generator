@@ -1,3 +1,5 @@
+
+
 export function shuffleArray(arr: any[]) {
   let currentIndex = arr.length;
   let randomIndex = 0;
@@ -19,4 +21,21 @@ export function test(
   if (test) {
     if (pass) pass();
   } else if (fail) fail();
+}
+
+const archiver = require('archiver');
+import fs from "fs";
+
+export function zipDirectory(source: string, out: string) {
+  const archive = archiver('zip', { zlib: { level: 9 }});
+  const stream = fs.createWriteStream(out);
+  
+  return new Promise((resolve, reject) => {
+    archive
+      .directory(source, false)
+      .on('error', (err: any) => reject(err))
+      .pipe(stream);
+    stream.on('close', () => resolve(undefined));
+    archive.finalize();
+  });
 }
