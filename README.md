@@ -4,7 +4,7 @@
 
 This project is made using typescript and compiled to nodeJS
 
-Recompile the project by running `tsc` in the root directory: 
+Recompile the project by running `tsc` in the root directory:
 
 ### Installing Dependancies
 
@@ -24,7 +24,7 @@ It will generate a zipped and unzipped version of each set of filters, and place
 
 ### Example:
 
-```bash 
+```bash
 bash makebeatmap.sh "hand11-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1"
 ```
 Or use the async version of the script, for faster generation of multiple levels
@@ -43,7 +43,7 @@ ___Running this can take some time to compleate, and will generate 4GB of files_
 ___This script uses up to 16GB of memory during execution, and could become very slow or crash if ran on a machine with under 16GB of allocation avalible___
 
 ```bash
-time time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
+time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
 ```
 
 ### Observations
@@ -65,6 +65,17 @@ time time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
 |         4 | 9900k (8C 16T) |  yes  | 0.3     |
 |         2 | 9900k (8C 16T) |  yes  | 0.3     |
 |         1 | 9900k (8C 16T) |  yes  | 0.3     |
+|      1024 | 3317U (2C 4T)  |  yes  | DNF     |
+|       512 | 3317U (2C 4T)  |  yes  | DNF     |
+|       256 | 3317U (2C 4T)  |  yes  | 121     |
+|       128 | 3317U (2C 4T)  |  yes  | 60      |
+|        64 | 3317U (2C 4T)  |  yes  | 30      |
+|        32 | 3317U (2C 4T)  |  yes  | 15.5    |
+|        16 | 3317U (2C 4T)  |  yes  | 7.5     |
+|         8 | 3317U (2C 4T)  |  yes  | 4       |
+|         4 | 3317U (2C 4T)  |  yes  | 2       |
+|         2 | 3317U (2C 4T)  |  yes  | 1.2     |
+|         1 | 3317U (2C 4T)  |  yes  | 1.1     |
 
 
 
@@ -89,4 +100,3 @@ time time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
  - [x] Benchmark generation to determine feasibility of realtime generation upon request server-side
  - [x] Add support for walls
  - [x] Allow for mixing of walls and notes
-
