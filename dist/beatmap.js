@@ -54,7 +54,7 @@ var BeatMap = /** @class */ (function () {
         console.log(this.len_in_bars);
         // Starting at 1, so we dont spawn an impossible note on the zeroth bar
         for (var i = 1; i < this.len_in_bars; i++) {
-            var randomVariationOffset = (this.params.rhythm) ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
+            var randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
             console.log(randomVariationOffset);
             notes.push(new notedata_1.NoteData(this.bar_size * i + randomVariationOffset, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
         }
