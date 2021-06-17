@@ -1,11 +1,11 @@
 import { NoteData } from "./level_obj/notedata";
-import { ObstacleData } from "./level_obj/obstacledata";
+import { WallData } from "./level_obj/walldata";
 
 export type LevelData = {
   "_version": "2.0.0",
   "_events": [],
   "_notes": NoteData[],
-  "_obstacles": ObstacleData[],
+  "_obstacles": WallData[],
 }
 
 export function compileLevelJSON(notes?: any[], obstacles?: any[], events?: any[]) {

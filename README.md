@@ -63,3 +63,5 @@ bash makebeatmapAsync.sh $(cat file_names.txt)
  - Make beats more lively by creating preset
  - Figure out how to remove the need for duplicating image and song for each map
  - Benchmark generation to determine feasibility of realtime generation upon request server-side
+ - Add support for walls
+ - Allow for mixing of walls and notes

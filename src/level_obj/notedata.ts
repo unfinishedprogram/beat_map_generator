@@ -6,7 +6,6 @@ export class NoteData {
   _lineLayer: number;
   _type: 0 | 1;
   _cutDirection = 8;
-  
   constructor (
     time: number,
     posIndex: number,
@@ -17,7 +16,6 @@ export class NoteData {
     this._lineLayer = def_note_position(posIndex)[1];
     this._type = hand;
   }
-
   toJson() {
     return {
       "_time": this._time,
