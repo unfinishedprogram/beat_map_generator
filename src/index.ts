@@ -23,16 +23,18 @@ function zipDirectory(source: string, out: string) {
   });
 }
 
-
 const args = process.argv.slice(2)
 
-if (args.length != 3) {
+if (!(args.length >= 3)) {
   console.log("3 arguments required,", args.length, "arguments given")
   console.log("[beat_map_string] [directory containing cover and song] [outdir]")
   console.log("Example parameters ")
   console.log('"hand11-target0001010010-wall000-duration1-rate1-visdistance2-distribution1-rhythm1-song1" ~/files/map_template ~/files/output_maps')
   exit()
 }
+// Disable logging if flag is false
+if (!args[4]) console.log = () => { };
+  
 
 let regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$")
 
@@ -42,16 +44,12 @@ let song_string = args[0]
 let template_dir = args[1]
 let out_dir = args[2]
 
-
-
-
 console.log("---------------------")
-
 test("song string is valid:", regex.test(song_string),undefined, () => exit());
 test("template dir exists:", fs.existsSync(template_dir),undefined, () => exit());
 test("output dir exists:", fs.existsSync(out_dir),undefined, () => exit());
-
 console.log("---------------------")
+
 console.log("Creating beatmap object...");
 
 let map = new BeatMap(song_string);

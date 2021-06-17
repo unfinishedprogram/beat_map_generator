@@ -27,15 +27,20 @@ It will generate a zipped and unzipped version of each set of filters, and place
 ```bash 
 bash makebeatmap.sh "hand11-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1"
 ```
+Or use the async version of the script, for faster generation of multiple levels
+```bash
+bash makebeatmapAsync.sh "hand11-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1"
+```
 
 ## Performance Benchmark:
 
 
 This will make a beatmap for every possible combination of note placement, all other filters will be consistant
 
-**_Running this can take upwards of 5 minutes to compleate, and will generate 4GB of files_**
+**_Running this can take some time to compleate, and will generate 4GB of files_**
+
 ```bash
-bash makebeatmap.sh $(cat file_names.txt)
+bash makebeatmapAsync.sh $(cat file_names.txt)
 ```
 
 ## Current filter support
