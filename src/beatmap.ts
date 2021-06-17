@@ -88,11 +88,9 @@ export class BeatMap{
 
   generateNotes() {
     let notes = []
-    console.log(this.len_in_bars)
     // Starting at 1, so we dont spawn an impossible note on the zeroth bar
     for (let i = 1; i < this.len_in_bars; i++){
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
-      console.log(randomVariationOffset)
       notes.push(new NoteData(
         this.bar_size * i + randomVariationOffset,
         this.shuffled_note_positions_list[i],
