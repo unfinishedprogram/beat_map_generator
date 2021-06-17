@@ -45,17 +45,18 @@ bash makebeatmapAsync.sh $(cat file_names.txt)
 
 ## Current filter support
 
-|       option | done  | notes                                                                      |
-| -----------: | :---: | -------------------------------------------------------------------------- |
-|         hand |  yes  | Currently not taking into account left and right position, only color/hand |
-|       target |  yes  |                                                                            |
-|         wall |  no   |                                                                            |
-|     duration |  yes  |                                                                            |
-|         rate |  yes  | rate changes the number of beats between each note, not the BPM            |
-| distribution |  no   |                                                                            |
-|       rhythm |  yes  |                                                                            |
-|         song |  no   |                                                                            |
+|       option | done  | notes                                                                                                                                          |
+| -----------: | :---: | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+|         hand |  yes  | Currently not taking into account left and right position, only color/hand                                                                     |
+|       target |  yes  |                                                                                                                                                |
+|         wall |  no   |                                                                                                                                                |
+|     duration |  yes  |                                                                                                                                                |
+|         rate |  yes  | rate changes the number of beats between each note, not the BPM                                                                                |
+| distribution |  no   |                                                                                                                                                |
+|       rhythm |  yes  | implemented by adding a randomized offset to each note position, based on the rate, so that no two notes are ever closer than half of the rate |
+|         song |  no   |                                                                                                                                                |
 
 ## TODO
  - Implement distribution option
  - Make beats more lively by creating preset
+ - Figure out how to remove the need for duplicating image and song for each map.
