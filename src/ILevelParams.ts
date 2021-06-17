@@ -47,7 +47,7 @@ export function strParamsToLevelParams(params: IStrLevelParams):ILevelParams {
     },
     duration: [60, 120, 180][parseInt(params.filters.duration) - 1] as 60 | 120 | 180,
     distribution: (params.filters.distribution == "1") ? "blocked" : "random",
-    rate: [75, 100, 120, 150][parseInt(params.filters.rate)], // TEMP VALUES
+    rate: parseInt(params.filters.rate), // TEMP VALUES
     rhythm: params.filters.rhythm,
     song: params.filters.song,
     visDistance: parseInt(params.filters.visDistance),

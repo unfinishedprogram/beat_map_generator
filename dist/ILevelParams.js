@@ -19,7 +19,7 @@ function strParamsToLevelParams(params) {
         },
         duration: [60, 120, 180][parseInt(params.filters.duration) - 1],
         distribution: (params.filters.distribution == "1") ? "blocked" : "random",
-        rate: [75, 100, 120, 150][parseInt(params.filters.rate)],
+        rate: parseInt(params.filters.rate),
         rhythm: params.filters.rhythm,
         song: params.filters.song,
         visDistance: parseInt(params.filters.visDistance),

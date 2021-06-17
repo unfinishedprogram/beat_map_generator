@@ -21,7 +21,6 @@ function zipDirectory(source, out) {
     });
 }
 var args = process.argv.slice(2);
-console.log(args);
 if (args.length != 3) {
     console.log("3 arguments required,", args.length, "arguments given");
     console.log("[beat_map_string] [directory containing cover and song] [outdir]");

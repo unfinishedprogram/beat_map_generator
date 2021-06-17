@@ -15,7 +15,7 @@ var BeatMap = /** @class */ (function () {
         this.file_name = fileName;
         // Calculating the total number of beats in the song
         this.bar_size = bar_size_mapping[this.params.rate];
-        this.len_in_beats = Math.floor(this.params.rate * (this.params.duration / 60));
+        this.len_in_beats = Math.floor(100 * (this.params.duration / 60));
         this.len_in_bars = Math.floor(this.len_in_beats / this.bar_size);
         this.current_len_in_bars = 0;
         this.current_len_in_beats = 0;
@@ -51,16 +51,19 @@ var BeatMap = /** @class */ (function () {
     };
     BeatMap.prototype.generateNotes = function () {
         var notes = [];
+        console.log(this.len_in_bars);
         // Starting at 1, so we dont spawn an impossible note on the zeroth bar
         for (var i = 1; i < this.len_in_bars; i++) {
-            notes.push(new notedata_1.NoteData(this.bar_size * i, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
+            var randomVariationOffset = (this.params.rhythm) ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
+            console.log(randomVariationOffset);
+            notes.push(new notedata_1.NoteData(this.bar_size * i + randomVariationOffset, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
         }
         return notes;
     };
     BeatMap.prototype.makeLevelJson = function () {
         return {
             levelDat: levelDat_1.createLevelDat(this.notes.map(function (note) { return note.toJson(); })),
-            infoDat: InfoDat_1.createInfoDat("song" + this.params.song, this.file_name, this.params.rate)
+            infoDat: InfoDat_1.createInfoDat("song" + this.params.song, this.file_name, 100)
         };
     };
     return BeatMap;

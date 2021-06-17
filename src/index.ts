@@ -24,7 +24,6 @@ function zipDirectory(source: string, out: string) {
 
 
 const args = process.argv.slice(2)
-console.log(args)
 
 if (args.length != 3) {
   console.log("3 arguments required,", args.length, "arguments given")

@@ -38,8 +38,9 @@ export class BeatMap{
     
     this.bar_size = bar_size_mapping[this.params.rate];
 
-    this.len_in_beats = Math.floor(this.params.rate * (this.params.duration / 60));
+    this.len_in_beats = Math.floor(100 * (this.params.duration / 60));
     
+
     this.len_in_bars = Math.floor(this.len_in_beats / this.bar_size);
 
     this.current_len_in_bars = 0;
@@ -87,9 +88,16 @@ export class BeatMap{
 
   generateNotes() {
     let notes = []
+    console.log(this.len_in_bars)
     // Starting at 1, so we dont spawn an impossible note on the zeroth bar
     for (let i = 1; i < this.len_in_bars; i++){
-      notes.push(new NoteData(this.bar_size * i, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i] as 1 | 0));
+      let randomVariationOffset = (this.params.rhythm) ? (Math.random() * this.bar_size) - this.bar_size / 2 : 0;
+      console.log(randomVariationOffset)
+      notes.push(new NoteData(
+        this.bar_size * i + randomVariationOffset,
+        this.shuffled_note_positions_list[i],
+        this.shuffled_hand_list[i] as 1 | 0
+      ));
     }
     return notes;
   }
@@ -97,7 +105,7 @@ export class BeatMap{
   makeLevelJson() {
     return {
       levelDat: createLevelDat(this.notes.map((note) => note.toJson())),
-      infoDat: createInfoDat("song" + this.params.song, this.file_name, this.params.rate)
+      infoDat: createInfoDat("song" + this.params.song, this.file_name, 100)
     }
   }
 }

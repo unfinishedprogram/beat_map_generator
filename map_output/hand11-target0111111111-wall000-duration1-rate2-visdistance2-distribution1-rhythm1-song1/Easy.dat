@@ -1,0 +1,175 @@
+{
+    "_version": "2.0.0",
+    "_notes": [
+        {
+            "_time": 3.125156462694097,
+            "_lineIndex": 0,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 9.149583847350714,
+            "_lineIndex": 3,
+            "_lineLayer": 2,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 13.677702625859702,
+            "_lineIndex": 2,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 14.614530096949853,
+            "_lineIndex": 2,
+            "_lineLayer": 2,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 19.665521455205113,
+            "_lineIndex": 1,
+            "_lineLayer": 2,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 23.36103730433784,
+            "_lineIndex": 0,
+            "_lineLayer": 1,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 27.66635245774548,
+            "_lineIndex": 3,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 30.340537045308512,
+            "_lineIndex": 3,
+            "_lineLayer": 1,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 37.504883109118104,
+            "_lineIndex": 3,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 41.310267519673644,
+            "_lineIndex": 0,
+            "_lineLayer": 1,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 42.6028185284222,
+            "_lineIndex": 3,
+            "_lineLayer": 2,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 48.711719201436054,
+            "_lineIndex": 1,
+            "_lineLayer": 2,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 50.199090256632026,
+            "_lineIndex": 2,
+            "_lineLayer": 2,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 57.71845831869188,
+            "_lineIndex": 2,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 61.85801319719113,
+            "_lineIndex": 0,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 64.25033118406941,
+            "_lineIndex": 1,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 67.87739091887313,
+            "_lineIndex": 3,
+            "_lineLayer": 1,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 70.2115296827071,
+            "_lineIndex": 3,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 77.4196394373865,
+            "_lineIndex": 2,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 80.61513206372064,
+            "_lineIndex": 2,
+            "_lineLayer": 2,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 84.09297274139273,
+            "_lineIndex": 3,
+            "_lineLayer": 1,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 87.63393129826969,
+            "_lineIndex": 0,
+            "_lineLayer": 0,
+            "_type": 1,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 92.63972390734389,
+            "_lineIndex": 1,
+            "_lineLayer": 0,
+            "_type": 0,
+            "_cutDirection": 8
+        },
+        {
+            "_time": 95.20710160794394,
+            "_lineIndex": 3,
+            "_lineLayer": 2,
+            "_type": 1,
+            "_cutDirection": 8
+        }
+    ],
+    "_obstacles": [],
+    "_events": []
+}
