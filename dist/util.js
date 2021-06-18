@@ -29,7 +29,7 @@ exports.test = test;
 var archiver = require('archiver');
 var fs_1 = __importDefault(require("fs"));
 function zipDirectory(source, out) {
-    var archive = archiver('zip', { zlib: { level: 9 } });
+    var archive = archiver('zip', { zlib: { level: 1 } });
     var stream = fs_1.default.createWriteStream(out);
     return new Promise(function (resolve, reject) {
         archive

@@ -67,8 +67,6 @@ export const def_hand = (param: string): number[] => {
 
 export const def_distribution = (peram: string): number => parseInt(peram);
 
-
-
 export type NoteData = {
   "_time": number,
   "_lineIndex": number,

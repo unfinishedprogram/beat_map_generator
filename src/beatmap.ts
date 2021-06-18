@@ -3,10 +3,9 @@ import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
 import { createWallData } from "./level_obj/walldata";
-import { def_duration, def_hand, def_rate, def_targets, def_walls, NoteData, WallData } from "./paramiter_defs";
+import { def_distribution, def_duration, def_hand, def_rate, def_targets, def_walls, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
-const bar_size_mapping = [8, 6, 4, 2, 1]
 export class BeatMap{
   file_name: string;
   params: IStrLevelParams;
@@ -20,6 +19,7 @@ export class BeatMap{
   enabled_walls: number[];
   enabled_hands: number[];
   duration: number;
+  distribution: number;
 
 
   shuffled_note_positions_list: number[];
@@ -46,6 +46,7 @@ export class BeatMap{
     this.enabled_walls = def_walls(this.params.wall)
     this.enabled_hands = def_hand(this.params.hand)
     this.duration = def_duration(this.params.duration)
+    this.distribution = def_distribution(this.params.distribution)
 
     this.len_in_beats = Math.floor(100 * (this.duration / 60));
     this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
@@ -83,7 +84,7 @@ export class BeatMap{
     
      for (let i = 1; i < this.len_in_bars; i++){
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
-
+      
       if (Math.random() <= ratio) {
         // WALLS
         console.log("wall")

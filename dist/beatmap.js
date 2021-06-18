@@ -8,7 +8,6 @@ var notedata_1 = require("./level_obj/notedata");
 var walldata_1 = require("./level_obj/walldata");
 var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
-var bar_size_mapping = [8, 6, 4, 2, 1];
 var BeatMap = /** @class */ (function () {
     function BeatMap(fileName) {
         // Parsing the fileName string into a nice usable JSON object
@@ -23,6 +22,7 @@ var BeatMap = /** @class */ (function () {
         this.enabled_walls = paramiter_defs_1.def_walls(this.params.wall);
         this.enabled_hands = paramiter_defs_1.def_hand(this.params.hand);
         this.duration = paramiter_defs_1.def_duration(this.params.duration);
+        this.distribution = paramiter_defs_1.def_distribution(this.params.distribution);
         this.len_in_beats = Math.floor(100 * (this.duration / 60));
         this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
         this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_targets);
