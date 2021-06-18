@@ -33,16 +33,15 @@ export class BeatMap{
 
     // Parsing the fileName string into a nice usable JSON object
     this.params = fileNameToParams(fileName);
-    console.log(this.params)
 
     this.notes = [];
     this.walls = [];
 
     this.file_name = fileName
 
-    // Initalizing paramaters
-    this.rate = def_rate(this.params.rate);
+    // Initalizing from paramaters
 
+    this.rate = def_rate(this.params.rate);
     this.enabled_targets = def_targets(this.params.targets)
     this.enabled_walls = def_walls(this.params.wall)
     this.enabled_hands = def_hand(this.params.hand)

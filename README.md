@@ -14,6 +14,8 @@ All dependancies can be installed by running this in the project directory.
 npm install
 ```
 
+---
+
 ## Usage
 To generate a beatmap, make sure you are the same directory as `makebeatmap.sh` and run the script
 
@@ -31,6 +33,7 @@ Or use the async version of the script, for faster generation of multiple levels
 ```bash
 bash makebeatmapAsync.sh "hand11-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1"
 ```
+---
 
 ## Performance Benchmark
 
@@ -77,8 +80,30 @@ time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
 |         2 | 3317U (2C 4T)  |  yes  | 1.2     |
 |         1 | 3317U (2C 4T)  |  yes  | 1.1     |
 
+---
 
+## File name definition
 
+ > Each beatmap can be represented by a single string, containing information about the filters used to generate it.
+
+Each file name contains "`-`" seperated sets of named attributes, each defined by a pure text name, followed by a binary or intiger number.
+
+### Example
+ > `hand01-taget1000000000-wall100-duration1-rate2-visdistance2-distribution1-rhythm1.zip`
+
+### Attributes
+
+|       option | format (regex) | Description                                |
+| -----------: | :------------: | ------------------------------------------ |
+|         hand |   `[01]{2}`    | Selects what hands to include blocks for   |
+|       target |   `[01]{10}`   | Selects what target positions are enabled  |
+|         wall |   `[01]{3}`    | Selects what walls are enabled             |
+|     duration |    `[123]`     | Selects the length of the song             |
+|         rate |    `[123]`     | Selects the number of beats between blocks |
+| distribution |     `[12]`     | Selects the type of distribution           |
+|       rhythm |     `[12]`     | Selects the regularity of timing each note |
+
+---
 
 ## Current filter support
 
@@ -91,6 +116,8 @@ time bash makebeatmapAsync.sh $(cat benchmarks/bench1024.txt)
 |         rate |  yes  | rate changes the number of beats between each note, not the BPM                                                                                |
 | distribution |  no   |                                                                                                                                                |
 |       rhythm |  yes  | implemented by adding a randomized offset to each note position, based on the rate, so that no two notes are ever closer than half of the rate |
+
+---
 
 ## TODO
 
