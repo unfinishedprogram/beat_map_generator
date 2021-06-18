@@ -17,7 +17,6 @@ export const def_targets = (param: string) => {
   return posList;
 }
 
-
 // Defines the notes in game position given there binary index
 export const def_note_position = (param: number): [
   0 | 1 | 2 | 3,
@@ -48,7 +47,7 @@ export const def_walls = (param: string): number[] => {
 
 // Defines the duration in seconds of the song
 export const def_duration = (param: string): number => {
-    switch (param) {
+  switch (param) {
     case '1': return 60;
     case '2': return 120;
     case '3': return 180;
@@ -66,6 +65,22 @@ export const def_hand = (param: string): number[] => {
   }
 }
 
-
-
 export const def_distribution = (peram: string): number => parseInt(peram);
+
+
+
+export type NoteData = {
+  "_time": number,
+  "_lineIndex": number,
+  "_lineLayer": number,
+  "_type": number,
+  "_cutDirection": number,
+}
+
+export type WallData = {
+  "_time": number,
+  "_lineIndex": number,
+  "_duration": number,
+  "_type": number,
+  "_width": number,
+}

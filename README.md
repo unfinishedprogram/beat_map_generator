@@ -121,6 +121,7 @@ Each file name contains "`-`" seperated sets of named attributes, each defined b
 
 ## TODO
 
+ - [ ] Add filter to change ratio of wall and note occurrence
  - [ ] Implement distribution option
  - [ ] Make beats more lively by creating preset
  - [ ] Figure out how to remove the need for duplicating image and song for each map

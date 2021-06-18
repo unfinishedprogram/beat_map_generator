@@ -1,9 +1,9 @@
 import { CompileInfoJSON } from "./compileInfoJson";
 import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
-import { NoteData } from "./level_obj/notedata";
-import { WallData } from "./level_obj/walldata";
-import { def_duration, def_hand, def_rate, def_targets, def_walls } from "./peramiter_defs";
+import { createNoteData } from "./level_obj/notedata";
+import { createWallData } from "./level_obj/walldata";
+import { def_duration, def_hand, def_rate, def_targets, def_walls, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
 const bar_size_mapping = [8, 6, 4, 2, 1]
@@ -33,7 +33,7 @@ export class BeatMap{
 
     // Parsing the fileName string into a nice usable JSON object
     this.params = fileNameToParams(fileName);
-
+    console.log(this.params)
     this.notes = [];
     this.walls = [];
 
@@ -55,9 +55,9 @@ export class BeatMap{
     this.shuffled_hand_list = this.getShuffledList(this.len_in_bars, this.enabled_hands)
 
     
-    let dat = this.generateMap();
-    this.notes = dat.notes;
-    this.walls = dat.obstacles;
+    let map = this.generateMap();
+    this.notes = map.notes;
+    this.walls = map.obstacles;
   }
 
   getShuffledList(length: number, arr: any[]) {
@@ -81,19 +81,21 @@ export class BeatMap{
       if (this.enabled_walls.length == 0)
         ratio = 0;
     
-
      for (let i = 1; i < this.len_in_bars; i++){
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
 
-      if (Math.random() >= ratio) {
+      if (Math.random() <= ratio) {
         // WALLS
-        obstacles.push(new WallData(
+        console.log("wall")
+        obstacles.push(createWallData(
           this.rate * i + randomVariationOffset,
           this.shuffled_wall_positions_list[i] as 0 | 1 | 2,
           this.rate/2
         ))
       } else {
-        notes.push(new NoteData(
+        // NOTES
+        console.log("note")
+        notes.push(createNoteData(
           this.rate * i + randomVariationOffset,
           this.shuffled_note_positions_list[i],
           this.shuffled_hand_list[i] as 1 | 0
@@ -108,9 +110,7 @@ export class BeatMap{
 
   getBeatmapJson() {
     return {
-      level: compileLevelJSON(
-        this.notes.map((note) => note.toJson()),
-        this.walls.map((wall) => wall.toJson())),
+      level: compileLevelJSON( this.notes, this.walls),
       info: CompileInfoJSON("song" + this.params.song, this.file_name, 100)
     }
   }

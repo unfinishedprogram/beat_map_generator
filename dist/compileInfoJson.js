@@ -17,33 +17,33 @@ function CompileInfoJSON(name, sub_name, beats_per_minute) {
         "_songFilename": "song.egg",
         "_coverImageFilename": "cover.jpg",
         "_environmentName": "DefaultEnvironment",
-        "_customData": {
-            "_editor": "beatmapper",
-            "_editorSettings": {
-                "modSettings": {
-                    "customColors": {
-                        "isEnabled": false,
-                        "colorLeft": "#f21212",
-                        "colorLeftOverdrive": 0,
-                        "colorRight": "#006cff",
-                        "colorRightOverdrive": 0,
-                        "envColorLeft": "#f21212",
-                        "envColorLeftOverdrive": 0,
-                        "envColorRight": "#006cff",
-                        "envColorRightOverdrive": 0,
-                        "obstacleColor": "#f21212",
-                        "obstacleColorOverdrive": 0
-                    },
-                    "mappingExtensions": {
-                        "isEnabled": false,
-                        "numRows": 3,
-                        "numCols": 4,
-                        "colWidth": 1,
-                        "rowHeight": 1
-                    }
-                }
-            }
-        },
+        // "_customData": {
+        //   "_editor": "generated",
+        //   "_editorSettings": {
+        //     "modSettings": {
+        //       "customColors": {
+        //         "isEnabled": false,
+        //         "colorLeft": "#f21212",
+        //         "colorLeftOverdrive": 0,
+        //         "colorRight": "#006cff",
+        //         "colorRightOverdrive": 0,
+        //         "envColorLeft": "#f21212",
+        //         "envColorLeftOverdrive": 0,
+        //         "envColorRight": "#006cff",
+        //         "envColorRightOverdrive": 0,
+        //         "obstacleColor": "#f21212",
+        //         "obstacleColorOverdrive": 0
+        //       },
+        //       "mappingExtensions": {
+        //         "isEnabled": false,
+        //         "numRows": 3,
+        //         "numCols": 4,
+        //         "colWidth": 1,
+        //         "rowHeight": 1
+        //       }
+        //     }
+        //   }
+        // },
         "_difficultyBeatmapSets": [
             {
                 "_beatmapCharacteristicName": "Standard",

@@ -16,8 +16,9 @@ if (!(args.length >= 3)) {
     console.log('"hand11-target0001010010-wall000-duration1-rate1-visdistance2-distribution1-rhythm1-song1" ~/files/map_template ~/files/output_maps');
     process_1.exit();
 }
-// Disable logging if flag is false
-if (!args[4])
+// Disable logging if flag is true 
+// TODO Fix this
+if (args[4] == "true")
     console.log = function () { };
 var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
 var song_string = args[0];
