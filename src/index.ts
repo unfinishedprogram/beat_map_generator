@@ -17,6 +17,7 @@ if (!(args.length >= 3)) {
 // Disable logging if flag is true 
 // TODO Fix this
 // if (args[4] == "true")
+
 console.log = () => { };
 
 let regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$")
@@ -44,8 +45,8 @@ if (!fs.existsSync(song_dir))
 
 console.log("Copying template files...")
 
-// fs.copyFileSync(template_dir + "/cover.jpg", song_dir + "/cover.jpg")
-// fs.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg")
+fs.copyFileSync(template_dir + "/cover.jpg", song_dir + "/cover.jpg")
+fs.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg")
 
 console.log("Writing .dat files...")
 
