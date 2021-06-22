@@ -100,7 +100,7 @@ Each file name contains "`-`" seperated sets of named attributes, each defined b
 |         wall |   `[01]{3}`    | Selects what walls are enabled             |
 |     duration |    `[123]`     | Selects the length of the song             |
 |         rate |    `[123]`     | Selects the number of beats between blocks |
-| distribution |     `[12]`     | Selects the type of distribution           |
+| distribution |     `[12]`     | Selects the number of blocks to chian      |
 |       rhythm |     `[12]`     | Selects the regularity of timing each note |
 
 ---
@@ -125,6 +125,14 @@ Each file name contains "`-`" seperated sets of named attributes, each defined b
  - [ ] Implement distribution option
  - [ ] Make beats more lively by creating preset
  - [ ] Figure out how to remove the need for duplicating image and song for each map
- - [x] Benchmark generation to determine feasibility of realtime generation upon request server-side
- - [x] Add support for walls
- - [x] Allow for mixing of walls and notes
+ - [ ] Implement variable BPM rate option
+ - [ ] Add firebase API implementation for automatic uplaod
+
+
+# TO ADD TO DATABASE:
+
+ - Always both hands
+ - rate medium
+ - distribution random
+ - Rhythm regular
+ - Include 
