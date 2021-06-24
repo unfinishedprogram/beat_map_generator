@@ -10,7 +10,7 @@ export const def_rate = (param: string) => {
 }
 
 // Defines a list of target indexes given a binary string of length 10
-export const def_targets = (param: string) => {
+export const def_targets = (param: string): number[] => {
   let posList = [];
   for (let i = 0; i < param.length; i++)
     if (param[i] == '1') posList.push(i);
@@ -21,6 +21,7 @@ export const def_targets = (param: string) => {
 export const def_note_position = (param: number): [
   0 | 1 | 2 | 3,
   0 | 1 | 2] => {
+  
   switch (param) {
     case 0: return [0, 2];
     case 1: return [1, 2];

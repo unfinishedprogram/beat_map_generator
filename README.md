@@ -127,6 +127,10 @@ Each file name contains "`-`" seperated sets of named attributes, each defined b
  - [ ] Figure out how to remove the need for duplicating image and song for each map
  - [ ] Implement variable BPM rate option
  - [ ] Add firebase API implementation for automatic uplaod
+ - [ ] Create api to run locally for testing of validity
+
+
+
 
 
 # TO ADD TO DATABASE:

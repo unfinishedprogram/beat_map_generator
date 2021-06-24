@@ -75,24 +75,28 @@ export class BeatMap{
     let obstacles: WallData[] = [];
 
     let ratio = 0.5;
-      if (this.enabled_walls.length != 0 && this.enabled_targets.length != 0)
-        ratio = 0.5;
-      if (this.enabled_targets.length == 0)
-        ratio = 1;
-      if (this.enabled_walls.length == 0)
-        ratio = 0;
+
+    if (this.enabled_walls.length != 0 && this.enabled_targets.length != 0)
+      ratio = 0.5;
+    if (this.enabled_targets.length == 0)
+      ratio = 1;
+    if (this.enabled_walls.length == 0)
+      ratio = 0;
     
-     for (let i = 1; i < this.len_in_bars; i++){
+    for (let i = 1; i < this.len_in_bars; i++){
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
       
       if (Math.random() <= ratio) {
         // WALLS
         console.log("wall")
+
         obstacles.push(createWallData(
           this.rate * i + randomVariationOffset,
           this.shuffled_wall_positions_list[i] as 0 | 1 | 2,
-          this.rate/2
-        ))
+          2
+        ));
+
+        i++;
       } else {
         // NOTES
         console.log("note")
@@ -111,8 +115,8 @@ export class BeatMap{
 
   getBeatmapJson() {
     return {
-      level: compileLevelJSON( this.notes, this.walls),
-      info: CompileInfoJSON("song" + this.params.song, this.file_name, 100)
+      level: compileLevelJSON(this, this.notes, this.walls),
+      info: CompileInfoJSON(this)
     }
   }
 }

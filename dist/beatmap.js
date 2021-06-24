@@ -56,7 +56,8 @@ var BeatMap = /** @class */ (function () {
             if (Math.random() <= ratio) {
                 // WALLS
                 console.log("wall");
-                obstacles.push(walldata_1.createWallData(this.rate * i + randomVariationOffset, this.shuffled_wall_positions_list[i], this.rate / 2));
+                obstacles.push(walldata_1.createWallData(this.rate * i + randomVariationOffset, this.shuffled_wall_positions_list[i], 2));
+                i++;
             }
             else {
                 // NOTES
@@ -71,8 +72,8 @@ var BeatMap = /** @class */ (function () {
     };
     BeatMap.prototype.getBeatmapJson = function () {
         return {
-            level: compileLevelJson_1.compileLevelJSON(this.notes, this.walls),
-            info: compileInfoJson_1.CompileInfoJSON("song" + this.params.song, this.file_name, 100)
+            level: compileLevelJson_1.compileLevelJSON(this, this.notes, this.walls),
+            info: compileInfoJson_1.CompileInfoJSON(this)
         };
     };
     return BeatMap;

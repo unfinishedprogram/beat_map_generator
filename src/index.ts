@@ -27,9 +27,9 @@ let template_dir = args[1]
 let out_dir = args[2]
 
 console.log("---------------------")
-test("song string is valid:", regex.test(song_string),undefined, () => exit());
-test("template dir exists:", fs.existsSync(template_dir),undefined, () => exit());
-test("output dir exists:", fs.existsSync(out_dir),undefined, () => exit());
+test("song string is valid:", regex.test(song_string), undefined, () => exit());
+test("template dir exists:", fs.existsSync(template_dir), undefined, () => exit());
+test("output dir exists:", fs.existsSync(out_dir), undefined, () => exit());
 console.log("---------------------")
 
 console.log("Creating beatmap object...");
@@ -38,10 +38,14 @@ let map = new BeatMap(song_string);
 let level_data = map.getBeatmapJson()
 
 console.log("Creating direcotry structure...");
-let song_dir = out_dir + "/" + song_string;
 
-if (!fs.existsSync(song_dir))
+let song_dir = out_dir + "/" + song_string + "/" + song_string;
+
+if (!fs.existsSync(song_dir)) {
+  fs.mkdirSync(out_dir + "/" + song_string);
   fs.mkdirSync(song_dir);
+}
+  
 
 console.log("Copying template files...")
 
@@ -51,12 +55,12 @@ fs.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg")
 console.log("Writing .dat files...")
 
 fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4))
-fs.writeFileSync(song_dir + "/Easy.dat", JSON.stringify(level_data.level, null, 4))
+fs.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_data.level, null, 4))
 
 console.log("Compressing to archive...")
 
-zipDirectory(song_dir, song_dir + ".zip")
+zipDirectory(out_dir + "/" + song_string, out_dir + "/" + song_string + ".zip")
 
 console.log("---------------------")
-console.log("Done!")
+console.log(        "Done!"        )
 console.log("---------------------")
