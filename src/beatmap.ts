@@ -88,6 +88,7 @@ export class BeatMap{
       
       if (Math.random() <= ratio) {
         // WALLS
+        if(i < this.len_in_bars - 1)
         console.log("wall")
 
         obstacles.push(createWallData(

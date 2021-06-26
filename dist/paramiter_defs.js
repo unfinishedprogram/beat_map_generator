@@ -42,11 +42,11 @@ exports.def_note_position = def_note_position;
 var def_walls = function (param) {
     var walls = [];
     if (param[0] == '1')
-        walls.push(0);
+        walls.push(0); // Left
     if (param[1] == '1')
-        walls.push(1);
+        walls.push(2); // Right
     if (param[2] == '1')
-        walls.push(2);
+        walls.push(1); // Top
     return walls;
 };
 exports.def_walls = def_walls;
