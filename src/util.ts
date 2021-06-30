@@ -27,7 +27,7 @@ const archiver = require('archiver');
 import fs from "fs";
 
 export function zipDirectory(source: string, out: string) {
-  const archive = archiver('zip', { zlib: { level: 1 }});
+  const archive = archiver('zip', { zlib: { level: 1 }});`~`
   const stream = fs.createWriteStream(out);
   
   return new Promise((resolve, reject) => {

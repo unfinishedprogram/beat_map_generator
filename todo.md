@@ -9,7 +9,7 @@
 
 ## Tweaks
  - [ ] Make command centre default to 00 hands, when no targets are enabled for reduced duplication
-
+ 
 ## Visual
  - [ ] Add new themes
  - [ ] Change default theme
