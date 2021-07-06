@@ -73,30 +73,29 @@ export class BeatMap{
 
     let ratio = 0.5;
 
-    if (this.enabled_walls.length != 0 && this.enabled_targets.length != 0)
+    if (this.enabled_walls.length && this.enabled_targets.length)
       ratio = 0.5;
-    if (this.enabled_targets.length == 0)
+    if (!this.enabled_targets.length)
       ratio = 1;
-    if (this.enabled_walls.length == 0)
+    if (!this.enabled_walls.length)
       ratio = 0;
-    
+
     for (let i = 1; i < this.len_in_bars; i++){
+      // Add a random offset for second rhythm mode
       let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * 4) - 4 / 2 : 0;
+
       if (Math.random() <= ratio) {
         // WALLS
-        if(i < this.len_in_bars - 1)
-        console.log("wall")
-
-        obstacles.push(createWallData(
-          4 * i + randomVariationOffset,
-          this.shuffled_wall_positions_list[i] as 0 | 1 | 2,
-          2
-        ));
-
-        i++;
+        if(i < this.len_in_bars - 1){
+          obstacles.push(createWallData(
+            4 * i + randomVariationOffset,
+            this.shuffled_wall_positions_list[i] as 0 | 1 | 2,
+            2
+          ));
+          i++;
+        }
       } else {
         // NOTES
-        console.log("note")
         notes.push(createNoteData(
           4 * i + randomVariationOffset,
           this.shuffled_note_positions_list[i],
@@ -104,6 +103,7 @@ export class BeatMap{
         ));
       }
     }
+    
     return {
       notes: notes,
       obstacles: obstacles,
