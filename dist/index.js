@@ -22,10 +22,11 @@ if (!(args.length >= 3)) {
 console.log = function () { };
 var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
 var song_string = args[0];
-var template_dir = args[1];
+var template_dir = args[1] + '/' + (song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8]);
 var out_dir = args[2];
 console.log("---------------------");
 util_1.test("song string is valid:", regex.test(song_string), undefined, function () { return process_1.exit(); });
+console.log(template_dir);
 util_1.test("template dir exists:", fs_1.default.existsSync(template_dir), undefined, function () { return process_1.exit(); });
 util_1.test("output dir exists:", fs_1.default.existsSync(out_dir), undefined, function () { return process_1.exit(); });
 console.log("---------------------");
@@ -47,5 +48,5 @@ fs_1.default.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_dat
 console.log("Compressing to archive...");
 util_1.zipDirectory(out_dir + "/" + song_string, out_dir + "/" + song_string + ".zip");
 console.log("---------------------");
-console.log("Done!");
+console.log("        Done!        ");
 console.log("---------------------");

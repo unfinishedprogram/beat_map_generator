@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWallData = void 0;
 function createWallData(_time, position, // Left, Top, Right
 _duration) {
     return {

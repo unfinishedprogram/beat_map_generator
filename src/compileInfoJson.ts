@@ -7,7 +7,7 @@ export function CompileInfoJSON(beatmap:BeatMap) {
     "_songSubName": beatmap.file_name,
     "_songAuthorName": "",
     "_levelAuthorName": "",
-    "_beatsPerMinute": 100,
+    "_beatsPerMinute": beatmap.rate,
     "_songTimeOffset": 0,
     "_shuffle": 0,
     "_shufflePeriod": 0.5,

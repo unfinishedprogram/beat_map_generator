@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNoteData = void 0;
 var paramiter_defs_1 = require("../paramiter_defs");
 function createNoteData(time, posIndex, hand) {
     return {

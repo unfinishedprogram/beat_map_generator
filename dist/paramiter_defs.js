@@ -1,28 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.def_distribution = exports.def_hand = exports.def_duration = exports.def_walls = exports.def_note_position = exports.def_targets = exports.def_rate = void 0;
 // Rate defines the number of beats between each note given a rate preset
-var def_rate = function (param) {
+exports.def_rate = function (param) {
     switch (param) {
-        case '1': return 6;
-        case '2': return 4;
-        case '3': return 2;
-        case '4': return 1;
-        default: return 8;
+        case '1': return 90;
+        case '2': return 100;
+        case '3': return 110;
+        case '4': return 120;
+        default: return 100;
     }
 };
-exports.def_rate = def_rate;
 // Defines a list of target indexes given a binary string of length 10
-var def_targets = function (param) {
+exports.def_targets = function (param) {
     var posList = [];
     for (var i = 0; i < param.length; i++)
         if (param[i] == '1')
             posList.push(i);
     return posList;
 };
-exports.def_targets = def_targets;
 // Defines the notes in game position given there binary index
-var def_note_position = function (param) {
+exports.def_note_position = function (param) {
     switch (param) {
         case 0: return [0, 2];
         case 1: return [1, 2];
@@ -37,9 +34,8 @@ var def_note_position = function (param) {
         default: return [0, 0];
     }
 };
-exports.def_note_position = def_note_position;
 // Defines a list of enabled wall indexes from a binary string of length 3
-var def_walls = function (param) {
+exports.def_walls = function (param) {
     var walls = [];
     if (param[0] == '1')
         walls.push(0); // Left
@@ -49,9 +45,8 @@ var def_walls = function (param) {
         walls.push(1); // Top
     return walls;
 };
-exports.def_walls = def_walls;
 // Defines the duration in seconds of the song
-var def_duration = function (param) {
+exports.def_duration = function (param) {
     switch (param) {
         case '1': return 60;
         case '2': return 120;
@@ -59,9 +54,8 @@ var def_duration = function (param) {
         default: return 60;
     }
 };
-exports.def_duration = def_duration;
 // Defines the enabled hands
-var def_hand = function (param) {
+exports.def_hand = function (param) {
     switch (param) {
         case '10': return [0];
         case '01': return [1];
@@ -69,6 +63,4 @@ var def_hand = function (param) {
         default: return [0, 1];
     }
 };
-exports.def_hand = def_hand;
-var def_distribution = function (peram) { return parseInt(peram); };
-exports.def_distribution = def_distribution;
+exports.def_distribution = function (peram) { return parseInt(peram); };

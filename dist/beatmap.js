@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BeatMap = void 0;
 var compileInfoJson_1 = require("./compileInfoJson");
 var compileLevelJson_1 = require("./compileLevelJson");
 var ILevelParams_1 = require("./ILevelParams");
@@ -23,8 +22,8 @@ var BeatMap = /** @class */ (function () {
         this.enabled_hands = paramiter_defs_1.def_hand(this.params.hand);
         this.duration = paramiter_defs_1.def_duration(this.params.duration);
         this.distribution = paramiter_defs_1.def_distribution(this.params.distribution);
-        this.len_in_beats = Math.floor(100 * (this.duration / 60));
-        this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
+        this.len_in_beats = Math.floor(this.rate * (this.duration / 60));
+        this.len_in_bars = Math.floor(this.len_in_beats / 4);
         this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_targets);
         this.shuffled_wall_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_walls);
         this.shuffled_hand_list = this.getShuffledList(this.len_in_bars, this.enabled_hands);
@@ -52,17 +51,18 @@ var BeatMap = /** @class */ (function () {
         if (this.enabled_walls.length == 0)
             ratio = 0;
         for (var i = 1; i < this.len_in_bars; i++) {
-            var randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
+            var randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * 4) - 4 / 2 : 0;
             if (Math.random() <= ratio) {
                 // WALLS
-                console.log("wall");
-                obstacles.push(walldata_1.createWallData(this.rate * i + randomVariationOffset, this.shuffled_wall_positions_list[i], 2));
+                if (i < this.len_in_bars - 1)
+                    console.log("wall");
+                obstacles.push(walldata_1.createWallData(4 * i + randomVariationOffset, this.shuffled_wall_positions_list[i], 2));
                 i++;
             }
             else {
                 // NOTES
                 console.log("note");
-                notes.push(notedata_1.createNoteData(this.rate * i + randomVariationOffset, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
+                notes.push(notedata_1.createNoteData(4 * i + randomVariationOffset, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
             }
         }
         return {

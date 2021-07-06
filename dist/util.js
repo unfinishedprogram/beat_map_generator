@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.zipDirectory = exports.test = exports.shuffleArray = void 0;
 function shuffleArray(arr) {
     var _a;
     var currentIndex = arr.length;
@@ -30,6 +29,7 @@ var archiver = require('archiver');
 var fs_1 = __importDefault(require("fs"));
 function zipDirectory(source, out) {
     var archive = archiver('zip', { zlib: { level: 1 } });
+    "~";
     var stream = fs_1.default.createWriteStream(out);
     return new Promise(function (resolve, reject) {
         archive

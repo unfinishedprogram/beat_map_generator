@@ -1,7 +1,7 @@
 echo "Generating beatmaps..."
 for arg in "$@"
 do
-  node ./dist/index.js "$arg" "./template" "./map_output" false &
+  node ./dist/index.js "$arg" "./template" "./map_output" &
 done
 wait;
 

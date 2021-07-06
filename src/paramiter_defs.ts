@@ -1,11 +1,11 @@
 // Rate defines the number of beats between each note given a rate preset
 export const def_rate = (param: string) => {
   switch (param) {
-    case '1': return 6;
-    case '2': return 4;
-    case '3': return 2;
-    case '4': return 1;
-    default: return 8;
+    case '1': return 90;
+    case '2': return 100;
+    case '3': return 110;
+    case '4': return 120;
+    default: return 100;
   }
 }
 
@@ -45,7 +45,6 @@ export const def_walls = (param: string): number[] => {
   if (param[1] == '1') walls.push(2); // Right
   if (param[2] == '1') walls.push(1); // Top
   
-
   return walls;
 }
 

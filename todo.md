@@ -2,7 +2,7 @@
 
 ## Features
  - [x] Add no targets option to command centre
- - [ ] Add independant axis scalling, left, right, up, down
+ - [x] Add independant axis scalling, left, right, up, down
  - [ ] Add toggle for left/right mixing and positioning in command centre
  - [ ] Add any hand option to command centre using 00
  - [ ] Add blocked distribution option (1:random:default 2:blocked:change)

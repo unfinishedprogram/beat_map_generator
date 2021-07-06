@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fileNameToParams = exports.peramToFileName = void 0;
 function peramToFileName(data) {
     return "hand" + data.hand + "-target" + data.targets + "-wall" + data.wall + "-duration" + data.duration + "-visdistance" + data.visDistance + "-distribution" + data.distribution + "-rhythm" + data.rhythm + "-song" + data.song;
 }
