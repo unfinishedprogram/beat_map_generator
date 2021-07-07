@@ -1,8 +1,9 @@
 
 
-export function shuffleArray(arr: any[]) {
-  let currentIndex = arr.length;
+export function shuffleArray(array: any[]) {
+  let currentIndex = array.length;
   let randomIndex = 0;
+  let arr = [...array];
     
   while (0 !== currentIndex) {
     randomIndex = Math.floor(Math.random() * currentIndex);

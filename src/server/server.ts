@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path';
 import { BeatMap } from '../beatmap';
 var app = express()
 var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
@@ -12,14 +13,38 @@ router.get('/', function (req, res) {
   if ((typeof req.query["song_string"] != "string"))
   {
     throw new Error('Invalid querry')
-
   } else if (!regex.test(req.query["song_string"]))
   {
     throw new Error('Invalid level string')
-
   } else
   {
     res.json(new BeatMap( req.query["song_string"] as string).getBeatmapJson())
+  }
+});
+
+router.get('/song', function(req, res) {
+  if ((typeof req.query["song_string"] != "string")){
+    throw new Error('Invalid querry')
+  } else if (!regex.test(req.query["song_string"])){
+    throw new Error('Invalid level string')
+  } else {
+    let song_string = req.query["song_string"];
+    if(!song_string) return;
+    let folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
+    res.sendFile(path.join(__dirname, '../../src/server/songs', folder_name, 'song.egg'));
+  }
+});
+
+router.get('/cover', function(req, res) {
+  if ((typeof req.query["song_string"] != "string")){
+    throw new Error('Invalid querry')
+  } else if (!regex.test(req.query["song_string"])){
+    throw new Error('Invalid level string')
+  } else {
+    let song_string = req.query["song_string"];
+    if(!song_string) return;
+    let folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
+    res.sendFile(path.join(__dirname, '../../src/server/songs', folder_name, 'cover.jpg'));
   }
 });
 

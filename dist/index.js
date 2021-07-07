@@ -20,7 +20,7 @@ if (!(args.length >= 3)) {
 // TODO Fix this
 // if (args[4] == "true")
 console.log = function () { };
-var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
+var regex = new RegExp("^hand[012]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
 var song_string = args[0];
 var template_dir = args[1] + '/' + (song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8]);
 var out_dir = args[2];

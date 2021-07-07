@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
+var path_1 = __importDefault(require("path"));
 var beatmap_1 = require("../beatmap");
 var app = express_1.default();
 var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
@@ -20,6 +21,36 @@ router.get('/', function (req, res) {
     }
     else {
         res.json(new beatmap_1.BeatMap(req.query["song_string"]).getBeatmapJson());
+    }
+});
+router.get('/song', function (req, res) {
+    if ((typeof req.query["song_string"] != "string")) {
+        throw new Error('Invalid querry');
+    }
+    else if (!regex.test(req.query["song_string"])) {
+        throw new Error('Invalid level string');
+    }
+    else {
+        var song_string = req.query["song_string"];
+        if (!song_string)
+            return;
+        var folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
+        res.sendFile(path_1.default.join(__dirname, '../../src/server/songs', folder_name, 'song.egg'));
+    }
+});
+router.get('/cover', function (req, res) {
+    if ((typeof req.query["song_string"] != "string")) {
+        throw new Error('Invalid querry');
+    }
+    else if (!regex.test(req.query["song_string"])) {
+        throw new Error('Invalid level string');
+    }
+    else {
+        var song_string = req.query["song_string"];
+        if (!song_string)
+            return;
+        var folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
+        res.sendFile(path_1.default.join(__dirname, '../../src/server/songs', folder_name, 'cover.jpg'));
     }
 });
 app.listen(port);

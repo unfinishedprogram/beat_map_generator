@@ -3,27 +3,29 @@ import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
 import { createWallData } from "./level_obj/walldata";
-import { def_distribution, def_duration, def_hand, def_rate, def_targets, def_walls, NoteData, WallData } from "./paramiter_defs";
+import { def_distribution, def_duration, def_hand, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
+
+const BAR_SIZE = 4;
+const RATIO = 0.5;
 
 export class BeatMap{
   file_name: string;
   params: IStrLevelParams;
   len_in_beats: number;
   len_in_bars: number;
+  current_len_in_bars: number;
 
   // ConvertedPeramiters:
   rate: number; // Beats between notes
   enabled_targets: number[];
-  enabled_walls: number[];
-  enabled_hands: number[];
+  enabled_walls: (0|1|2|3)[];
+  enabled_hands: HANDS;
   duration: number;
   distribution: number;
 
-
-  shuffled_note_positions_list: number[];
-  shuffled_wall_positions_list: number[];
-  shuffled_hand_list: number[];
+  shuffled_note_positions: number[];
+  shuffled_wall_positions: number[];
 
   notes: NoteData[];
   walls: WallData[];
@@ -42,15 +44,17 @@ export class BeatMap{
     this.enabled_targets = def_targets(this.params.targets)
     this.enabled_walls = def_walls(this.params.wall)
     this.enabled_hands = def_hand(this.params.hand)
+
     this.duration = def_duration(this.params.duration)
     this.distribution = def_distribution(this.params.distribution)
 
     this.len_in_beats = Math.floor(this.rate * (this.duration / 60));
-    this.len_in_bars = Math.floor(this.len_in_beats / 4);
+    this.len_in_bars = Math.floor(this.len_in_beats / BAR_SIZE);
   
-    this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_targets);
-    this.shuffled_wall_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_walls);
-    this.shuffled_hand_list = this.getShuffledList(this.len_in_bars, this.enabled_hands)
+    this.shuffled_note_positions = [];
+    this.shuffled_wall_positions = [];
+
+    this.current_len_in_bars = 0;
 
     let map = this.generateMap();
 
@@ -58,56 +62,56 @@ export class BeatMap{
     this.walls = map.obstacles;
   }
 
-  getShuffledList(length: number, arr: any[]) {
-    let newArr = [] as number[];
-    if (arr.length < 1) return newArr;
-    while (newArr.length < length) {
-      newArr = newArr.concat(shuffleArray(arr))
-    }
-    return newArr;
-  }
-
   generateMap() {
     let notes: NoteData[] = [];
     let obstacles: WallData[] = [];
+    let ratio = RATIO;
 
-    let ratio = 0.5;
+    if (this.enabled_walls.length && this.enabled_targets.length) ratio = RATIO;
+    if (!this.enabled_targets.length) ratio = 0;
+    if (!this.enabled_walls.length) ratio = 1;
 
-    if (this.enabled_walls.length && this.enabled_targets.length)
-      ratio = 0.5;
-    if (!this.enabled_targets.length)
-      ratio = 1;
-    if (!this.enabled_walls.length)
-      ratio = 0;
-
-    for (let i = 1; i < this.len_in_bars; i++){
-      // Add a random offset for second rhythm mode
-      let randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * 4) - 4 / 2 : 0;
-
-      if (Math.random() <= ratio) {
-        // WALLS
-        if(i < this.len_in_bars - 1){
-          obstacles.push(createWallData(
-            4 * i + randomVariationOffset,
-            this.shuffled_wall_positions_list[i] as 0 | 1 | 2,
-            2
-          ));
-          i++;
-        }
-      } else {
-        // NOTES
-        notes.push(createNoteData(
-          4 * i + randomVariationOffset,
-          this.shuffled_note_positions_list[i],
-          this.shuffled_hand_list[i] as 1 | 0
-        ));
+    // Generative Loop
+    while(this.current_len_in_bars < this.len_in_bars) {
+      if(Math.random() < ratio){
+        this.addNote(notes, this.getNextNotePosition(), this.enabled_hands);
+      } else{
+        this.addWall(obstacles, this.getNextWallPosition());
       }
     }
-    
+
     return {
       notes: notes,
       obstacles: obstacles,
     }
+  }
+
+  addNote(notes:NoteData[], position:number, hand: HANDS) {
+    notes.push(createNoteData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, hand))
+    this.current_len_in_bars++;
+  }
+
+  addWall(walls:WallData[], position: 0 | 1 | 2){
+    walls.push(createWallData(this.current_len_in_bars*BAR_SIZE + this.getRhythmOffset(), position, 1))
+    this.current_len_in_bars++;
+  }
+
+  getNextNotePosition() {
+    if(!this.shuffled_note_positions.length) {
+      this.shuffled_note_positions = shuffleArray(this.enabled_targets)
+    }
+    return this.shuffled_note_positions.pop() as number;
+  }
+
+  getNextWallPosition() {
+    if(!this.shuffled_note_positions.length) {
+      this.shuffled_note_positions = shuffleArray(this.enabled_walls)
+    }
+    return this.shuffled_note_positions.pop() as 0 | 1 | 2;
+  }
+
+  getRhythmOffset() {
+    return (this.params.rhythm == "2") ? (Math.random() * BAR_SIZE) - BAR_SIZE / 2 : 0;
   }
 
   getBeatmapJson() {

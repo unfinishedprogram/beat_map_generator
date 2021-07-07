@@ -7,6 +7,8 @@ var notedata_1 = require("./level_obj/notedata");
 var walldata_1 = require("./level_obj/walldata");
 var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
+var BAR_SIZE = 4;
+var RATIO = 0.5;
 var BeatMap = /** @class */ (function () {
     function BeatMap(fileName) {
         // Parsing the fileName string into a nice usable JSON object
@@ -23,52 +25,60 @@ var BeatMap = /** @class */ (function () {
         this.duration = paramiter_defs_1.def_duration(this.params.duration);
         this.distribution = paramiter_defs_1.def_distribution(this.params.distribution);
         this.len_in_beats = Math.floor(this.rate * (this.duration / 60));
-        this.len_in_bars = Math.floor(this.len_in_beats / 4);
-        this.shuffled_note_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_targets);
-        this.shuffled_wall_positions_list = this.getShuffledList(this.len_in_bars, this.enabled_walls);
-        this.shuffled_hand_list = this.getShuffledList(this.len_in_bars, this.enabled_hands);
+        this.len_in_bars = Math.floor(this.len_in_beats / BAR_SIZE);
+        this.shuffled_note_positions = [];
+        this.shuffled_wall_positions = [];
+        this.current_len_in_bars = 0;
         var map = this.generateMap();
         this.notes = map.notes;
         this.walls = map.obstacles;
     }
-    BeatMap.prototype.getShuffledList = function (length, arr) {
-        var newArr = [];
-        if (arr.length < 1)
-            return newArr;
-        while (newArr.length < length) {
-            newArr = newArr.concat(util_1.shuffleArray(arr));
-        }
-        return newArr;
-    };
     BeatMap.prototype.generateMap = function () {
         var notes = [];
         var obstacles = [];
-        var ratio = 0.5;
-        if (this.enabled_walls.length != 0 && this.enabled_targets.length != 0)
-            ratio = 0.5;
-        if (this.enabled_targets.length == 0)
-            ratio = 1;
-        if (this.enabled_walls.length == 0)
+        var ratio = RATIO;
+        if (this.enabled_walls.length && this.enabled_targets.length)
+            ratio = RATIO;
+        if (!this.enabled_targets.length)
             ratio = 0;
-        for (var i = 1; i < this.len_in_bars; i++) {
-            var randomVariationOffset = (this.params.rhythm == "2") ? (Math.random() * 4) - 4 / 2 : 0;
-            if (Math.random() <= ratio) {
-                // WALLS
-                if (i < this.len_in_bars - 1)
-                    console.log("wall");
-                obstacles.push(walldata_1.createWallData(4 * i + randomVariationOffset, this.shuffled_wall_positions_list[i], 2));
-                i++;
+        if (!this.enabled_walls.length)
+            ratio = 1;
+        // Generative Loop
+        while (this.current_len_in_bars < this.len_in_bars) {
+            if (Math.random() < ratio) {
+                this.addNote(notes, this.getNextNotePosition(), this.enabled_hands);
             }
             else {
-                // NOTES
-                console.log("note");
-                notes.push(notedata_1.createNoteData(4 * i + randomVariationOffset, this.shuffled_note_positions_list[i], this.shuffled_hand_list[i]));
+                this.addWall(obstacles, this.getNextWallPosition());
             }
         }
         return {
             notes: notes,
             obstacles: obstacles,
         };
+    };
+    BeatMap.prototype.addNote = function (notes, position, hand) {
+        notes.push(notedata_1.createNoteData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, hand));
+        this.current_len_in_bars++;
+    };
+    BeatMap.prototype.addWall = function (walls, position) {
+        walls.push(walldata_1.createWallData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, 1));
+        this.current_len_in_bars++;
+    };
+    BeatMap.prototype.getNextNotePosition = function () {
+        if (!this.shuffled_note_positions.length) {
+            this.shuffled_note_positions = util_1.shuffleArray(this.enabled_targets);
+        }
+        return this.shuffled_note_positions.pop();
+    };
+    BeatMap.prototype.getNextWallPosition = function () {
+        if (!this.shuffled_note_positions.length) {
+            this.shuffled_note_positions = util_1.shuffleArray(this.enabled_walls);
+        }
+        return this.shuffled_note_positions.pop();
+    };
+    BeatMap.prototype.getRhythmOffset = function () {
+        return (this.params.rhythm == "2") ? (Math.random() * BAR_SIZE) - BAR_SIZE / 2 : 0;
     };
     BeatMap.prototype.getBeatmapJson = function () {
         return {

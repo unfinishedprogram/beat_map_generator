@@ -39,10 +39,10 @@ exports.def_walls = function (param) {
     var walls = [];
     if (param[0] == '1')
         walls.push(0); // Left
-    if (param[1] == '1')
-        walls.push(2); // Right
     if (param[2] == '1')
         walls.push(1); // Top
+    if (param[1] == '1')
+        walls.push(2); // Right
     return walls;
 };
 // Defines the duration in seconds of the song
@@ -54,13 +54,15 @@ exports.def_duration = function (param) {
         default: return 60;
     }
 };
-// Defines the enabled hands
 exports.def_hand = function (param) {
     switch (param) {
-        case '10': return [0];
-        case '01': return [1];
-        case '11': return [0, 1];
-        default: return [0, 1];
+        case '10': return 0 /* LEFT */;
+        case '01': return 1 /* RIGHT */;
+        case '20': return 0 /* LEFT */;
+        case '02': return 1 /* RIGHT */;
+        case '11': return 2 /* BOTH_MIXED */;
+        case '22': return 3 /* BOTH_SEPERATE */;
+        default: return 2 /* BOTH_MIXED */;
     }
 };
 exports.def_distribution = function (peram) { return parseInt(peram); };

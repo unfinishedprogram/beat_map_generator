@@ -38,13 +38,11 @@ export const def_note_position = (param: number): [
 }
 
 // Defines a list of enabled wall indexes from a binary string of length 3
-export const def_walls = (param: string): number[] => {
-  let walls = [];
-  
+export const def_walls = (param: string): (0|1|2)[] => {
+  let walls:(0|1|2)[] = [];
   if (param[0] == '1') walls.push(0); // Left
-  if (param[1] == '1') walls.push(2); // Right
   if (param[2] == '1') walls.push(1); // Top
-  
+  if (param[1] == '1') walls.push(2); // Right
   return walls;
 }
 
@@ -59,16 +57,25 @@ export const def_duration = (param: string): number => {
 }
 
 // Defines the enabled hands
-export const def_hand = (param: string): number[] => { 
+export const enum HANDS{
+  LEFT, RIGHT, BOTH_MIXED, BOTH_SEPERATE 
+}
+export const def_hand = (param: string): HANDS => { 
   switch (param) {
-    case '10': return [0];
-    case '01': return [1];
-    case '11': return [0,1];
-    default: return [0,1];
+    case '10': return HANDS.LEFT;
+    case '01': return HANDS.RIGHT;
+
+    case '20': return HANDS.LEFT;
+    case '02': return HANDS.RIGHT;
+
+    case '11': return HANDS.BOTH_MIXED;
+    case '22': return HANDS.BOTH_SEPERATE;
+    default: return HANDS.BOTH_MIXED;
   }
 }
 
 export const def_distribution = (peram: string): number => parseInt(peram);
+
 
 export type NoteData = {
   "_time": number,
