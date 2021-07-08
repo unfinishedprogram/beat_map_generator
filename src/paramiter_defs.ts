@@ -60,6 +60,18 @@ export const def_duration = (param: string): number => {
 export const enum HANDS{
   LEFT, RIGHT, BOTH_MIXED, BOTH_SEPERATE 
 }
+
+export const def_note_type = (hand: HANDS, position:number): 1 | 0 => {
+  let index = def_note_position(position)[0];
+  if(hand == HANDS.BOTH_SEPERATE){
+    return (index >= 2) ? 0 : 1;
+  } else if(hand == HANDS.BOTH_MIXED) {
+    return ((Math.random() > 0.5) ? 0 : 1)
+  } else {
+    return (hand == HANDS.LEFT) ? 0 : 1;
+  }
+}
+
 export const def_hand = (param: string): HANDS => { 
   switch (param) {
     case '10': return HANDS.LEFT;

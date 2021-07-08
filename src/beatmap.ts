@@ -3,11 +3,11 @@ import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
 import { createWallData } from "./level_obj/walldata";
-import { def_distribution, def_duration, def_hand, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
+import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
 const BAR_SIZE = 4;
-const RATIO = 0.5;
+const RATIO = 0.8;
 
 export class BeatMap{
   file_name: string;
@@ -54,7 +54,7 @@ export class BeatMap{
     this.shuffled_note_positions = [];
     this.shuffled_wall_positions = [];
 
-    this.current_len_in_bars = 0;
+    this.current_len_in_bars = 1; // Set a starting point for buffer
 
     let map = this.generateMap();
 
@@ -74,7 +74,9 @@ export class BeatMap{
     // Generative Loop
     while(this.current_len_in_bars < this.len_in_bars) {
       if(Math.random() < ratio){
-        this.addNote(notes, this.getNextNotePosition(), this.enabled_hands);
+        let note_pos = this.getNextNotePosition();
+        let note_type = def_note_type(this.enabled_hands, note_pos)
+        this.addNote(notes, this.getNextNotePosition(), note_type);
       } else{
         this.addWall(obstacles, this.getNextWallPosition());
       }
@@ -86,7 +88,7 @@ export class BeatMap{
     }
   }
 
-  addNote(notes:NoteData[], position:number, hand: HANDS) {
+  addNote(notes:NoteData[], position:number, hand: 0|1) {
     notes.push(createNoteData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, hand))
     this.current_len_in_bars++;
   }

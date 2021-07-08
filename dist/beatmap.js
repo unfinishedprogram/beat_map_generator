@@ -8,7 +8,7 @@ var walldata_1 = require("./level_obj/walldata");
 var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
 var BAR_SIZE = 4;
-var RATIO = 0.5;
+var RATIO = 0.8;
 var BeatMap = /** @class */ (function () {
     function BeatMap(fileName) {
         // Parsing the fileName string into a nice usable JSON object
@@ -28,7 +28,7 @@ var BeatMap = /** @class */ (function () {
         this.len_in_bars = Math.floor(this.len_in_beats / BAR_SIZE);
         this.shuffled_note_positions = [];
         this.shuffled_wall_positions = [];
-        this.current_len_in_bars = 0;
+        this.current_len_in_bars = 1; // Set a starting point for buffer
         var map = this.generateMap();
         this.notes = map.notes;
         this.walls = map.obstacles;
@@ -46,7 +46,9 @@ var BeatMap = /** @class */ (function () {
         // Generative Loop
         while (this.current_len_in_bars < this.len_in_bars) {
             if (Math.random() < ratio) {
-                this.addNote(notes, this.getNextNotePosition(), this.enabled_hands);
+                var note_pos = this.getNextNotePosition();
+                var note_type = paramiter_defs_1.def_note_type(this.enabled_hands, note_pos);
+                this.addNote(notes, this.getNextNotePosition(), note_type);
             }
             else {
                 this.addWall(obstacles, this.getNextWallPosition());

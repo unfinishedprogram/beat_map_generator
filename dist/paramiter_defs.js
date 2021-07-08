@@ -54,6 +54,18 @@ exports.def_duration = function (param) {
         default: return 60;
     }
 };
+exports.def_note_type = function (hand, position) {
+    var index = exports.def_note_position(position)[0];
+    if (hand == 3 /* BOTH_SEPERATE */) {
+        return (index >= 2) ? 0 : 1;
+    }
+    else if (hand == 2 /* BOTH_MIXED */) {
+        return ((Math.random() > 0.5) ? 0 : 1);
+    }
+    else {
+        return (hand == 0 /* LEFT */) ? 0 : 1;
+    }
+};
 exports.def_hand = function (param) {
     switch (param) {
         case '10': return 0 /* LEFT */;

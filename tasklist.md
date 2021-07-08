@@ -8,6 +8,9 @@
  - Re-enable right info panel
  
 ## Features
+ - [ ]
+
+ - Load default test level on stratup with empty cache
  - Shared media working.
  - Scaling by seperate axis independantly.
  - both hands split vs both hands not split. -- 22 = both split. 11 = both not split
