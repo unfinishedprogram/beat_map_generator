@@ -7,7 +7,6 @@ var notedata_1 = require("./level_obj/notedata");
 var walldata_1 = require("./level_obj/walldata");
 var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
-var BAR_SIZE = 4;
 var RATIO = 0.8;
 var BeatMap = /** @class */ (function () {
     function BeatMap(fileName) {
@@ -24,8 +23,9 @@ var BeatMap = /** @class */ (function () {
         this.enabled_hands = paramiter_defs_1.def_hand(this.params.hand);
         this.duration = paramiter_defs_1.def_duration(this.params.duration);
         this.distribution = paramiter_defs_1.def_distribution(this.params.distribution);
-        this.len_in_beats = Math.floor(this.rate * (this.duration / 60));
-        this.len_in_bars = Math.floor(this.len_in_beats / BAR_SIZE);
+        this.len_in_beats = Math.floor(100 * (this.duration / 60));
+        this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
+        console.log(this.len_in_beats);
         this.shuffled_note_positions = [];
         this.shuffled_wall_positions = [];
         this.current_len_in_bars = 1; // Set a starting point for buffer
@@ -48,7 +48,8 @@ var BeatMap = /** @class */ (function () {
             if (Math.random() < ratio) {
                 var note_pos = this.getNextNotePosition();
                 var note_type = paramiter_defs_1.def_note_type(this.enabled_hands, note_pos);
-                this.addNote(notes, this.getNextNotePosition(), note_type);
+                for (var i = 0; i < (this.distribution == 2 ? 4 : 1); i++)
+                    this.addNote(notes, note_pos, note_type);
             }
             else {
                 this.addWall(obstacles, this.getNextWallPosition());
@@ -60,11 +61,11 @@ var BeatMap = /** @class */ (function () {
         };
     };
     BeatMap.prototype.addNote = function (notes, position, hand) {
-        notes.push(notedata_1.createNoteData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, hand));
+        notes.push(notedata_1.createNoteData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, hand));
         this.current_len_in_bars++;
     };
     BeatMap.prototype.addWall = function (walls, position) {
-        walls.push(walldata_1.createWallData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, 1));
+        walls.push(walldata_1.createWallData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, 1));
         this.current_len_in_bars++;
     };
     BeatMap.prototype.getNextNotePosition = function () {
@@ -80,7 +81,7 @@ var BeatMap = /** @class */ (function () {
         return this.shuffled_note_positions.pop();
     };
     BeatMap.prototype.getRhythmOffset = function () {
-        return (this.params.rhythm == "2") ? (Math.random() * BAR_SIZE) - BAR_SIZE / 2 : 0;
+        return (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
     };
     BeatMap.prototype.getBeatmapJson = function () {
         return {

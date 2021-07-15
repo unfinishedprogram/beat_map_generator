@@ -18,11 +18,12 @@ if (!(args.length >= 3)) {
 // TODO Fix this
 // if (args[4] == "true")
 
-// console.log = () => {};
+console.log = () => {};
 
-let regex = new RegExp("^hand[012]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$")
+let regex = new RegExp("^hand(10|01|22|11)-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$")
+
 let song_string = args[0]
-let template_dir = args[1] + '/' + (song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8])
+let template_dir = args[1] + '/' + (song_string.split("-")[3] + song_string.split("-")[8])
 let out_dir = args[2]
 
 

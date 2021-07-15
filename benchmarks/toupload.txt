@@ -1,4 +1,0 @@
-hand10-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
-hand01-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
-hand11-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1
-hand22-target1111111111-wall000-duration1-rate2-visdistance2-distribution1-rhythm1-song1

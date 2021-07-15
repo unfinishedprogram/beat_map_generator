@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function CompileInfoJSON(beatmap) {
     return {
         "_version": "2.0.0",
-        "_songName": "song" + beatmap.file_name,
+        "_songName": "song" + beatmap.params.song,
         "_songSubName": beatmap.file_name,
-        "_songAuthorName": "",
-        "_levelAuthorName": "",
-        "_beatsPerMinute": beatmap.rate,
+        "_songAuthorName": beatmap.file_name,
+        "_levelAuthorName": beatmap.file_name,
+        "_beatsPerMinute": 100,
         "_songTimeOffset": 0,
         "_shuffle": 0,
         "_shufflePeriod": 0.5,

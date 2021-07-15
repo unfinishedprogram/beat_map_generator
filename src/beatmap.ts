@@ -6,7 +6,6 @@ import { createWallData } from "./level_obj/walldata";
 import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
-const BAR_SIZE = 4;
 const RATIO = 0.8;
 
 export class BeatMap{
@@ -44,12 +43,13 @@ export class BeatMap{
     this.enabled_targets = def_targets(this.params.targets)
     this.enabled_walls = def_walls(this.params.wall)
     this.enabled_hands = def_hand(this.params.hand)
-
     this.duration = def_duration(this.params.duration)
     this.distribution = def_distribution(this.params.distribution)
 
-    this.len_in_beats = Math.floor(this.rate * (this.duration / 60));
-    this.len_in_bars = Math.floor(this.len_in_beats / BAR_SIZE);
+    this.len_in_beats = Math.floor(100 * (this.duration / 60))
+    this.len_in_bars = Math.floor(this.len_in_beats / this.rate)
+
+    console.log(this.len_in_beats)
   
     this.shuffled_note_positions = [];
     this.shuffled_wall_positions = [];
@@ -73,10 +73,12 @@ export class BeatMap{
 
     // Generative Loop
     while(this.current_len_in_bars < this.len_in_bars) {
+      
       if(Math.random() < ratio){
         let note_pos = this.getNextNotePosition();
         let note_type = def_note_type(this.enabled_hands, note_pos)
-        this.addNote(notes, this.getNextNotePosition(), note_type);
+        for(let i = 0; i < (this.distribution == 2 ? 4 : 1); i++)
+          this.addNote(notes, note_pos, note_type);
       } else{
         this.addWall(obstacles, this.getNextWallPosition());
       }
@@ -89,12 +91,12 @@ export class BeatMap{
   }
 
   addNote(notes:NoteData[], position:number, hand: 0|1) {
-    notes.push(createNoteData(this.current_len_in_bars * BAR_SIZE + this.getRhythmOffset(), position, hand))
+    notes.push(createNoteData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, hand))
     this.current_len_in_bars++;
   }
 
   addWall(walls:WallData[], position: 0 | 1 | 2){
-    walls.push(createWallData(this.current_len_in_bars*BAR_SIZE + this.getRhythmOffset(), position, 1))
+    walls.push(createWallData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, 1))
     this.current_len_in_bars++;
   }
 
@@ -113,7 +115,7 @@ export class BeatMap{
   }
 
   getRhythmOffset() {
-    return (this.params.rhythm == "2") ? (Math.random() * BAR_SIZE) - BAR_SIZE / 2 : 0;
+    return (this.params.rhythm == "3") ? (Math.random() * this.rate) - this.rate / 2 : 0;
   }
 
   getBeatmapJson() {
