@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function CompileInfoJSON(beatmap) {
     return {
         "_version": "2.0.0",
-        "_songName": "song" + beatmap.params.song,
-        "_songSubName": beatmap.file_name,
-        "_songAuthorName": beatmap.file_name,
-        "_levelAuthorName": beatmap.file_name,
+        "_songName": "song" + beatmap.song,
+        "_songSubName": "",
+        "_songAuthorName": "",
+        "_levelAuthorName": "",
         "_beatsPerMinute": 100,
+        "songDuration": beatmap.duration,
         "_songTimeOffset": 0,
         "_shuffle": 0,
         "_shufflePeriod": 0.5,
@@ -16,6 +17,8 @@ function CompileInfoJSON(beatmap) {
         "_songFilename": "song.egg",
         "_coverImageFilename": "cover.jpg",
         "_environmentName": "DefaultEnvironment",
+        "_songFileLoc": "/song/?song=" + beatmap.file_path,
+        "_coverFileLoc": "/cover/?song=" + beatmap.file_path,
         "_customData": {
             "_editor": "generated",
             "_editorSettings": {

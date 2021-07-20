@@ -1,51 +1,39 @@
 import express from 'express'
 import path from 'path';
-import { BeatMap } from '../beatmap';
+import { getAllBeatmaps } from '../allBeatmapsFilter';
+import { BeatMap, ILevelPerams } from '../beatmap';
 var app = express()
-var regex = new RegExp("^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[123]-distribution[12]-rhythm[123]-song.*$");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+var cors = require('cors');
+app.use(cors());
+
 var port = process.env.PORT || 8002;
 var router = express.Router();
 
-router.get('/', function (req, res) {
-  if ((typeof req.query["song_string"] != "string"))
-  {
-    throw new Error('Invalid querry')
-  } else if (!regex.test(req.query["song_string"]))
-  {
-    throw new Error('Invalid level string')
-  } else
-  {
-    res.json(new BeatMap( req.query["song_string"] as string).getBeatmapJson())
-  }
+router.post('/', (req, res) => {
+  res.json(getAllBeatmaps(req.body as ILevelPerams));
 });
 
 router.get('/song', function(req, res) {
-  if ((typeof req.query["song_string"] != "string")){
-    throw new Error('Invalid querry')
-  } else if (!regex.test(req.query["song_string"])){
-    throw new Error('Invalid level string')
-  } else {
-    let song_string = req.query["song_string"];
+    console.log(req.query["song"])
+    let song_string = req.query["song"];
+    if(typeof song_string != "string") return;
     if(!song_string) return;
-    let folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
-    res.sendFile(path.join(__dirname, '../../src/server/songs', folder_name, 'song.egg'));
+    res.sendFile(path.join(__dirname, '../../src/server/songs', song_string, 'song.egg'));
   }
-});
+);
+
 
 router.get('/cover', function(req, res) {
-  if ((typeof req.query["song_string"] != "string")){
-    throw new Error('Invalid querry')
-  } else if (!regex.test(req.query["song_string"])){
-    throw new Error('Invalid level string')
-  } else {
-    let song_string = req.query["song_string"];
-    if(!song_string) return;
-    let folder_name = song_string.split("-")[4] + song_string.split("-")[3] + song_string.split("-")[8];
-    res.sendFile(path.join(__dirname, '../../src/server/songs', folder_name, 'cover.jpg'));
-  }
+  console.log(req.query["song"])
+  let song_string = req.query["song"];
+  if(typeof song_string != "string") return;
+  if(!song_string) return;
+  res.sendFile(path.join(__dirname, '../../src/server/songs', song_string, 'cover.jpg'));
+  
 });
 
 app.listen(port);

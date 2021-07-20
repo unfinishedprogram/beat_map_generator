@@ -2,6 +2,7 @@ import { exit } from "process";
 import { test, zipDirectory} from "./util";
 import { BeatMap } from "./beatmap"
 import fs from "fs";
+import { ILevelPerams } from "./beatmap";
 
 const args = process.argv.slice(2)
 
@@ -36,8 +37,8 @@ console.log("---------------------")
 
 console.log("Creating beatmap object...");
 
-let map = new BeatMap(song_string);
-let level_data = map.getBeatmapJson()
+let map = new BeatMap({} as ILevelPerams);
+// let level_data = map.getBeatmapJson()
 
 console.log("Creating direcotry structure...");
 
@@ -56,8 +57,8 @@ fs.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg")
 
 console.log("Writing .dat files...")
 
-fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4))
-fs.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_data.level, null, 4))
+// fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4))
+// fs.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_data.level, null, 4))
 
 console.log("Compressing to archive...")
 

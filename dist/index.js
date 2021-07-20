@@ -31,8 +31,8 @@ util_1.test("template dir exists:", fs_1.default.existsSync(template_dir), undef
 util_1.test("output dir exists:", fs_1.default.existsSync(out_dir), undefined, function () { return process_1.exit(); });
 console.log("---------------------");
 console.log("Creating beatmap object...");
-var map = new beatmap_1.BeatMap(song_string);
-var level_data = map.getBeatmapJson();
+var map = new beatmap_1.BeatMap({});
+// let level_data = map.getBeatmapJson()
 console.log("Creating direcotry structure...");
 var song_dir = out_dir + "/" + song_string + "/" + song_string;
 if (!fs_1.default.existsSync(song_dir)) {
@@ -43,8 +43,8 @@ console.log("Copying template files...");
 fs_1.default.copyFileSync(template_dir + "/cover.jpg", song_dir + "/cover.jpg");
 fs_1.default.copyFileSync(template_dir + "/song.egg", song_dir + "/song.egg");
 console.log("Writing .dat files...");
-fs_1.default.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4));
-fs_1.default.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_data.level, null, 4));
+// fs.writeFileSync(song_dir + "/Info.dat", JSON.stringify(level_data.info, null, 4))
+// fs.writeFileSync(song_dir + "/" + "Easy.dat", JSON.stringify(level_data.level, null, 4))
 console.log("Compressing to archive...");
 util_1.zipDirectory(out_dir + "/" + song_string, out_dir + "/" + song_string + ".zip");
 console.log("---------------------");

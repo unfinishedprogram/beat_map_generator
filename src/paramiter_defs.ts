@@ -1,10 +1,10 @@
 // Rate defines the number of beats between each note given a rate preset
-export const def_rate = (param: string) => {
+export const def_rate = (param: number) => {
   switch (param) {
-    case '1': return 8;
-    case '2': return 6;
-    case '3': return 4;
-    case '4': return 2;
+    case 1: return 8;
+    case 2: return 6;
+    case 3: return 4;
+    case 4: return 2;
     default: return 4;
   }
 }
@@ -38,11 +38,11 @@ export const def_note_position = (param: number): [
 }
 
 // Defines a list of enabled wall indexes from a binary string of length 3
-export const def_walls = (param: string): (0|1|2)[] => {
+export const def_walls = (top:boolean, left:boolean, right:boolean): (0|1|2)[] => {
   let walls:(0|1|2)[] = [];
-  if (param[0] == '1') walls.push(0); // Left
-  if (param[2] == '1') walls.push(1); // Top
-  if (param[1] == '1') walls.push(2); // Right
+  if (left) walls.push(0); // Left
+  if (top) walls.push(1); // Top
+  if (right) walls.push(2); // Right
   return walls;
 }
 
@@ -74,10 +74,10 @@ export const def_note_type = (hand: HANDS, position:number): 1 | 0 => {
 
 export const def_hand = (param: string): HANDS => { 
   switch (param) {
-    case '10': return HANDS.LEFT;
-    case '01': return HANDS.RIGHT;
-    case '11': return HANDS.BOTH_MIXED;
-    case '22': return HANDS.BOTH_SEPERATE;
+    case 'left': return HANDS.LEFT;
+    case 'right': return HANDS.RIGHT;
+    case 'both': return HANDS.BOTH_MIXED;
+    case 'split': return HANDS.BOTH_SEPERATE;
     default: return HANDS.BOTH_MIXED;
   }
 }

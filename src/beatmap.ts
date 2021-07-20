@@ -6,11 +6,35 @@ import { createWallData } from "./level_obj/walldata";
 import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
+export interface ILevelPerams {
+  [index:string]:unknown,
+  duration: 1|2|3,
+  distribution: 1|2,
+  hand: 'left' | 'right' | 'both' | 'split'
+  rate: number,
+  rhythm: 1,
+  target0: boolean,
+  target1: boolean,
+  target2: boolean,
+  target3: boolean,
+  target4: boolean,
+  target5: boolean,
+  target6: boolean,
+  target7: boolean,
+  target8: boolean,
+  target9: boolean,
+  visDistance: 2,
+  wallLeft: boolean,
+  wallRight: boolean,
+  wallTop: boolean,
+  song:string,
+}
+
 const RATIO = 0.8;
 
 export class BeatMap{
-  file_name: string;
-  params: IStrLevelParams;
+  song:string;
+  file_path: string;
   len_in_beats: number;
   len_in_bars: number;
   current_len_in_bars: number;
@@ -18,10 +42,11 @@ export class BeatMap{
   // ConvertedPeramiters:
   rate: number; // Beats between notes
   enabled_targets: number[];
-  enabled_walls: (0|1|2|3)[];
+  enabled_walls: (0|1|2)[];
   enabled_hands: HANDS;
   duration: number;
   distribution: number;
+  rhythm:number;
 
   shuffled_note_positions: number[];
   shuffled_wall_positions: number[];
@@ -29,28 +54,31 @@ export class BeatMap{
   notes: NoteData[];
   walls: WallData[];
 
-  constructor(fileName: string) {
-    // Parsing the fileName string into a nice usable JSON object
-    this.params = fileNameToParams(fileName);
-    console.log(this.params)
+  constructor(level_perams: ILevelPerams) {
     this.notes = [];
     this.walls = [];
+    this.file_path = "duration" + level_perams.duration + "song" + level_perams.song;
+    this.song = level_perams.song;
 
-    this.file_name = fileName
-    // Initalizing from paramaters
+    this.rate = def_rate(level_perams.rate);
+    this.enabled_targets = [];
+    for(let i = 0; i < 10; i++){
+      if(level_perams[("target" + i)])
+        this.enabled_targets.push(i)
+    }
 
-    this.rate = def_rate(this.params.rate);
-    this.enabled_targets = def_targets(this.params.targets)
-    this.enabled_walls = def_walls(this.params.wall)
-    this.enabled_hands = def_hand(this.params.hand)
-    this.duration = def_duration(this.params.duration)
-    this.distribution = def_distribution(this.params.distribution)
-
+    this.enabled_walls = def_walls(
+      level_perams.wallTop, 
+      level_perams.wallLeft, 
+      level_perams.wallRight)
+      
+    this.enabled_hands = def_hand(level_perams.hand)
+    this.duration = level_perams.duration * 60;
+    this.distribution = level_perams.distribution;
+    this.rhythm = level_perams.rhythm;
     this.len_in_beats = Math.floor(100 * (this.duration / 60))
     this.len_in_bars = Math.floor(this.len_in_beats / this.rate)
-
-    console.log(this.len_in_beats)
-  
+    
     this.shuffled_note_positions = [];
     this.shuffled_wall_positions = [];
 
@@ -115,13 +143,22 @@ export class BeatMap{
   }
 
   getRhythmOffset() {
-    return (this.params.rhythm == "3") ? (Math.random() * this.rate) - this.rate / 2 : 0;
+    return (this.rhythm == 3) ? (Math.random() * this.rate) - this.rate / 2 : 0;
   }
 
   getBeatmapJson() {
+    let compiled = {
+      ...compileLevelJSON(this, this.notes, this.walls), 
+      ...CompileInfoJSON(this),
+      id:this.file_path,
+      songName:this.song,
+    }
+    return compiled;
     return {
       level: compileLevelJSON(this, this.notes, this.walls),
-      info: CompileInfoJSON(this)
+      info: CompileInfoJSON(this),
+      id: this.file_path,
+      songName: this.song,
     }
   }
 }

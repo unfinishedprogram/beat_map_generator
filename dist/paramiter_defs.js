@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Rate defines the number of beats between each note given a rate preset
 exports.def_rate = function (param) {
     switch (param) {
-        case '1': return 8;
-        case '2': return 6;
-        case '3': return 4;
-        case '4': return 2;
+        case 1: return 8;
+        case 2: return 6;
+        case 3: return 4;
+        case 4: return 2;
         default: return 4;
     }
 };
@@ -35,13 +35,13 @@ exports.def_note_position = function (param) {
     }
 };
 // Defines a list of enabled wall indexes from a binary string of length 3
-exports.def_walls = function (param) {
+exports.def_walls = function (top, left, right) {
     var walls = [];
-    if (param[0] == '1')
+    if (left)
         walls.push(0); // Left
-    if (param[2] == '1')
+    if (top)
         walls.push(1); // Top
-    if (param[1] == '1')
+    if (right)
         walls.push(2); // Right
     return walls;
 };
@@ -68,10 +68,10 @@ exports.def_note_type = function (hand, position) {
 };
 exports.def_hand = function (param) {
     switch (param) {
-        case '10': return 0 /* LEFT */;
-        case '01': return 1 /* RIGHT */;
-        case '11': return 2 /* BOTH_MIXED */;
-        case '22': return 3 /* BOTH_SEPERATE */;
+        case 'left': return 0 /* LEFT */;
+        case 'right': return 1 /* RIGHT */;
+        case 'both': return 2 /* BOTH_MIXED */;
+        case 'split': return 3 /* BOTH_SEPERATE */;
         default: return 2 /* BOTH_MIXED */;
     }
 };
