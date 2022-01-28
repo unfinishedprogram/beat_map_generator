@@ -1,4 +1,4 @@
-import { WallData } from "../paramiter_defs";
+import { WallData } from "../paramiters";
 
 export function createWallData(
   _time: number,

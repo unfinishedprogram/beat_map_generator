@@ -1,4 +1,4 @@
-import { def_note_position, HANDS, NoteData } from "../paramiter_defs";
+import { def_note_position, HANDS, NoteData } from "../paramiters";
 
 export function createNoteData(
   time: number,

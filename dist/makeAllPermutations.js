@@ -5,7 +5,7 @@ var fs = require('fs');
 function getAllPermutations() {
     // This is a simplified subset, without distribution or view distance.
     // This still returns an array with over one million indecies
-    var pattern = genex(/^hand[01]{2}-target[01]{10}-wall[01]{3}-duration[123]-rate[1234]-visdistance[1]-distribution[1]-rhythm[123]-song[1]$/);
+    var pattern = genex(/^hand[01]{2}-target[01]{12}-wall[01]{3}-duration[123]-rate[1234]-visdistance[1]-distribution[1]-rhythm[123]-song[1]$/);
     return pattern.generate();
 }
 exports.getAllPermutations = getAllPermutations;

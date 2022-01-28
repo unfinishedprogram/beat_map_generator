@@ -1,6 +1,6 @@
 import { BeatMap } from "./beatmap";
-import { NoteData } from "./paramiter_defs";
-import { WallData } from "./paramiter_defs";
+import { NoteData } from "./paramiters";
+import { WallData } from "./paramiters";
 
 export type LevelData = {
   "_version": "2.0.0",

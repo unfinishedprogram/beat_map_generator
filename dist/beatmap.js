@@ -5,7 +5,7 @@ var compileLevelJson_1 = require("./compileLevelJson");
 var ILevelParams_1 = require("./ILevelParams");
 var notedata_1 = require("./level_obj/notedata");
 var walldata_1 = require("./level_obj/walldata");
-var paramiter_defs_1 = require("./paramiter_defs");
+var paramiters_1 = require("./paramiters");
 var util_1 = require("./util");
 var RATIO = 0.8;
 var BeatMap = /** @class */ (function () {
@@ -17,12 +17,12 @@ var BeatMap = /** @class */ (function () {
         this.walls = [];
         this.file_name = fileName;
         // Initalizing from paramaters
-        this.rate = paramiter_defs_1.def_rate(this.params.rate);
-        this.enabled_targets = paramiter_defs_1.def_targets(this.params.targets);
-        this.enabled_walls = paramiter_defs_1.def_walls(this.params.wall);
-        this.enabled_hands = paramiter_defs_1.def_hand(this.params.hand);
-        this.duration = paramiter_defs_1.def_duration(this.params.duration);
-        this.distribution = paramiter_defs_1.def_distribution(this.params.distribution);
+        this.rate = paramiters_1.def_rate(this.params.rate);
+        this.enabled_targets = paramiters_1.def_targets(this.params.targets);
+        this.enabled_walls = paramiters_1.def_walls(this.params.wall);
+        this.enabled_hands = paramiters_1.def_hand(this.params.hand);
+        this.duration = paramiters_1.def_duration(this.params.duration);
+        this.distribution = paramiters_1.def_distribution(this.params.distribution);
         this.len_in_beats = Math.floor(100 * (this.duration / 60));
         this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
         console.log(this.len_in_beats);
@@ -47,7 +47,7 @@ var BeatMap = /** @class */ (function () {
         while (this.current_len_in_bars < this.len_in_bars) {
             if (Math.random() < ratio) {
                 var note_pos = this.getNextNotePosition();
-                var note_type = paramiter_defs_1.def_note_type(this.enabled_hands, note_pos);
+                var note_type = paramiters_1.def_note_type(this.enabled_hands, note_pos);
                 for (var i = 0; i < (this.distribution == 2 ? 4 : 1); i++)
                     this.addNote(notes, note_pos, note_type);
             }
@@ -81,7 +81,7 @@ var BeatMap = /** @class */ (function () {
         return this.shuffled_note_positions.pop();
     };
     BeatMap.prototype.getRhythmOffset = function () {
-        return (this.params.rhythm == "2") ? (Math.random() * this.rate) - this.rate / 2 : 0;
+        return (this.params.rhythm == "3") ? (Math.random() * this.rate) - this.rate / 2 : 0;
     };
     BeatMap.prototype.getBeatmapJson = function () {
         return {

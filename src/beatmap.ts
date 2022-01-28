@@ -3,7 +3,7 @@ import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
 import { createWallData } from "./level_obj/walldata";
-import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
+import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiters";
 import { shuffleArray } from "./util";
 
 const RATIO = 0.8;

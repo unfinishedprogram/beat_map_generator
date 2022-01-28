@@ -34,7 +34,7 @@ export function fileNameToParams(file_name: string): IStrLevelParams {
   let params = file_name.split("-");
   return {
     hand: params[0].slice(-2) as "01" | "10" | "11",
-    targets: params[1].slice(-10),
+    targets: params[1].slice(-12),
     wall: params[2].slice(-3),
     duration: params[3].slice(-1),
     rate: params[4].slice(-1),
