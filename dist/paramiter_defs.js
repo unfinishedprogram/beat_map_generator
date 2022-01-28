@@ -31,6 +31,8 @@ exports.def_note_position = function (param) {
         case 7: return [1, 0];
         case 8: return [2, 0];
         case 9: return [3, 0];
+        case 10: return [1, 1];
+        case 11: return [2, 1];
         default: return [0, 0];
     }
 };

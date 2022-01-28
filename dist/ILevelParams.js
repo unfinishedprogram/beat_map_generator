@@ -8,7 +8,7 @@ function fileNameToParams(file_name) {
     var params = file_name.split("-");
     return {
         hand: params[0].slice(-2),
-        targets: params[1].slice(-10),
+        targets: params[1].slice(-12),
         wall: params[2].slice(-3),
         duration: params[3].slice(-1),
         rate: params[4].slice(-1),

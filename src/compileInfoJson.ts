@@ -3,7 +3,7 @@ import { BeatMap } from "./beatmap";
 export function CompileInfoJSON(beatmap:BeatMap) {
   return {
     "_version": "2.0.0",
-    "_songName": "song" + beatmap.song,
+    "_songName": beatmap.song,
     "_songSubName": "",
     "_songAuthorName": "",
     "_levelAuthorName": "",

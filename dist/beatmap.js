@@ -22,17 +22,17 @@ var BeatMap = /** @class */ (function () {
     function BeatMap(level_perams) {
         this.notes = [];
         this.walls = [];
-        this.file_path = "duration" + level_perams.duration + "song" + level_perams.song;
+        this.file_path = level_perams.song;
         this.song = level_perams.song;
         this.rate = paramiter_defs_1.def_rate(level_perams.rate);
         this.enabled_targets = [];
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 12; i++) {
             if (level_perams[("target" + i)])
                 this.enabled_targets.push(i);
         }
         this.enabled_walls = paramiter_defs_1.def_walls(level_perams.wallTop, level_perams.wallLeft, level_perams.wallRight);
         this.enabled_hands = paramiter_defs_1.def_hand(level_perams.hand);
-        this.duration = level_perams.duration * 60;
+        this.duration = level_perams.duration;
         this.distribution = level_perams.distribution;
         this.rhythm = level_perams.rhythm;
         this.len_in_beats = Math.floor(100 * (this.duration / 60));

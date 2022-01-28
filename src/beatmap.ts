@@ -23,6 +23,8 @@ export interface ILevelPerams {
   target7: boolean,
   target8: boolean,
   target9: boolean,
+  target10: boolean,
+  target11: boolean,
   visDistance: 2,
   wallLeft: boolean,
   wallRight: boolean,
@@ -57,12 +59,12 @@ export class BeatMap{
   constructor(level_perams: ILevelPerams) {
     this.notes = [];
     this.walls = [];
-    this.file_path = "duration" + level_perams.duration + "song" + level_perams.song;
+    this.file_path = level_perams.song;
     this.song = level_perams.song;
 
     this.rate = def_rate(level_perams.rate);
     this.enabled_targets = [];
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < 12; i++){
       if(level_perams[("target" + i)])
         this.enabled_targets.push(i)
     }
@@ -73,7 +75,7 @@ export class BeatMap{
       level_perams.wallRight)
       
     this.enabled_hands = def_hand(level_perams.hand)
-    this.duration = level_perams.duration * 60;
+    this.duration = level_perams.duration;
     this.distribution = level_perams.distribution;
     this.rhythm = level_perams.rhythm;
     this.len_in_beats = Math.floor(100 * (this.duration / 60))
