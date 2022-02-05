@@ -1,4 +1,4 @@
-import { CompileInfoJSON } from "./compileInfoJson";
+import { compileInfoJSON } from "./compileInfoJson";
 import { compileLevelJSON } from "./compileLevelJson";
 import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
@@ -151,14 +151,14 @@ export class BeatMap{
   getBeatmapJson() {
     let compiled = {
       ...compileLevelJSON(this, this.notes, this.walls), 
-      ...CompileInfoJSON(this),
+      ...compileInfoJSON(this),
       id:this.file_path,
       songName:this.song,
     }
     return compiled;
     return {
       level: compileLevelJSON(this, this.notes, this.walls),
-      info: CompileInfoJSON(this),
+      info: compileInfoJSON(this),
       id: this.file_path,
       songName: this.song,
     }

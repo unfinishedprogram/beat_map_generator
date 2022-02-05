@@ -1,6 +1,6 @@
 import { BeatMap } from "./beatmap";
 
-export function CompileInfoJSON(beatmap:BeatMap) {
+export function compileInfoJSON(beatmap:BeatMap) {
   return {
     "_version": "2.0.0",
     "_songName": beatmap.song,
