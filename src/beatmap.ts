@@ -51,7 +51,7 @@ export class BeatMap{
   rhythm:number;
 
   shuffled_note_positions: number[];
-  shuffled_wall_positions: number[];
+  shuffled_wall_positions: (0|1|2)[];
 
   notes: NoteData[];
   walls: WallData[];
@@ -134,14 +134,14 @@ export class BeatMap{
     if(!this.shuffled_note_positions.length) {
       this.shuffled_note_positions = shuffleArray(this.enabled_targets)
     }
-    return this.shuffled_note_positions.pop() as number;
+    return this.shuffled_note_positions.pop()!;
   }
 
-  getNextWallPosition() {
-    if(!this.shuffled_note_positions.length) {
-      this.shuffled_note_positions = shuffleArray(this.enabled_walls)
+  getNextWallPosition():(0|1|2) {
+    if(!this.shuffled_wall_positions.length) {
+      this.shuffled_wall_positions = shuffleArray(this.enabled_walls)
     }
-    return this.shuffled_note_positions.pop() as 0 | 1 | 2;
+    return this.shuffled_wall_positions.pop()!;
   }
 
   getRhythmOffset() {
@@ -149,18 +149,11 @@ export class BeatMap{
   }
 
   getBeatmapJson() {
-    let compiled = {
+    return {
       ...compileLevelJSON(this, this.notes, this.walls), 
       ...compileInfoJSON(this),
       id:this.file_path,
       songName:this.song,
-    }
-    return compiled;
-    return {
-      level: compileLevelJSON(this, this.notes, this.walls),
-      info: compileInfoJSON(this),
-      id: this.file_path,
-      songName: this.song,
     }
   }
 }
