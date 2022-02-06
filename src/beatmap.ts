@@ -68,6 +68,7 @@ export class BeatMap{
       if(level_perams[("target" + i)])
         this.enabled_targets.push(i)
     }
+    console.log(this.enabled_targets);
 
     this.enabled_walls = def_walls(
       level_perams.wallTop, 
@@ -137,7 +138,7 @@ export class BeatMap{
     return this.shuffled_note_positions.pop()!;
   }
 
-  getNextWallPosition():(0|1|2) {
+  getNextWallPosition():( 0 | 1 | 2 ) {
     if(!this.shuffled_wall_positions.length) {
       this.shuffled_wall_positions = shuffleArray(this.enabled_walls)
     }

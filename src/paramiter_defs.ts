@@ -1,3 +1,10 @@
+const notePositions = [
+  [0, 2],[1, 2],[2, 2],
+  [3, 2],[0, 1],[3, 1],
+  [0, 0],[1, 0],[2, 0],
+  [3, 0],[1, 1],[2, 1]
+]
+
 // Rate defines the number of beats between each note given a rate preset
 export const def_rate = (param: number) => {
   switch (param) {
@@ -18,25 +25,10 @@ export const def_targets = (param: string): number[] => {
 }
 
 // Defines the notes in game position given there binary index
-export const def_note_position = (param: number): [
-  0 | 1 | 2 | 3,
-  0 | 1 | 2] => {
-  
-  switch (param) {
-    case 0: return [0, 2];
-    case 1: return [1, 2];
-    case 2: return [2, 2];
-    case 3: return [3, 2];
-    case 4: return [0, 1];
-    case 5: return [3, 1];
-    case 6: return [0, 0];
-    case 7: return [1, 0];
-    case 8: return [2, 0];
-    case 9: return [3, 0];
-    case 10: return [1, 1];
-    case 11: return [2, 1];
-    default: return [0, 0];
-  }
+
+export const def_note_position = (param: number) => {
+  console.log("Note Requested at", param,  notePositions[param])
+    return notePositions[param] as [0 | 1 | 2 | 3, 0 | 1 | 2];
 }
 
 // Defines a list of enabled wall indexes from a binary string of length 3
