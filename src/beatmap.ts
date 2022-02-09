@@ -79,7 +79,7 @@ export class BeatMap{
     this.duration = level_perams.duration;
     this.distribution = level_perams.distribution;
     this.rhythm = level_perams.rhythm;
-    this.len_in_beats = Math.floor(100 * (this.duration / 60))
+    this.len_in_beats = Math.floor(100 * (this.duration / 60) - 1)
     this.len_in_bars = Math.floor(this.len_in_beats / this.rate)
     
     this.shuffled_note_positions = [];
