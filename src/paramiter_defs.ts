@@ -34,8 +34,8 @@ export const def_note_position = (param: number) => {
 // Defines a list of enabled wall indexes from a binary string of length 3
 export const def_walls = (top:boolean, left:boolean, right:boolean): (0|1|2)[] => {
   let walls:(0|1|2)[] = [];
-  if (left) walls.push(0); // Left
-  if (top) walls.push(1); // Top
+  if (top) walls.push(0); // Top
+  if (left) walls.push(1); // Left
   if (right) walls.push(2); // Right
   return walls;
 }
