@@ -13,8 +13,8 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var compileInfoJson_1 = require("./compileInfoJson");
 var compileLevelJson_1 = require("./compileLevelJson");
-var notedata_1 = require("./level_obj/notedata");
-var walldata_1 = require("./level_obj/walldata");
+var noteData_1 = require("./level_obj/noteData");
+var wallData_1 = require("./level_obj/wallData");
 var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
 var RATIO = 0.8;
@@ -31,7 +31,6 @@ var BeatMap = /** @class */ (function () {
                 this.enabled_targets.push(i);
         }
         this.enabled_walls = paramiter_defs_1.def_walls(level_params);
-        console.log("Enabled walls", this.enabled_walls);
         this.enabled_hands = paramiter_defs_1.def_hand(level_params.hand);
         this.duration = level_params.duration;
         this.distribution = level_params.distribution;
@@ -73,11 +72,14 @@ var BeatMap = /** @class */ (function () {
         };
     };
     BeatMap.prototype.addNote = function (notes, position, hand) {
-        notes.push(notedata_1.createNoteData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, hand));
+        notes.push(noteData_1.createNoteData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, hand));
         this.current_len_in_bars++;
     };
     BeatMap.prototype.addWall = function (walls, position) {
-        walls.push(walldata_1.createWallData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, 1));
+        walls.push(wallData_1.createWallData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, 1));
+        if (this.rhythm == 3 && this.rate > 3) {
+            this.current_len_in_bars++;
+        }
         this.current_len_in_bars++;
     };
     BeatMap.prototype.getNextNotePosition = function () {

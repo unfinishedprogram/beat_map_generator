@@ -3,18 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var beatmap_1 = require("./beatmap");
 var possible_songs = [
     "Dancing on Venus",
-    "Lightning on Jupiter",
-    "Sunset on Mars",
-    "Surfing on the Moon"
+    "Flying on Jupiter",
+    "Dreaming on Mars",
+    "Surfing on the Moon",
+    "Jumping on Jupiter",
+    "Playing on Pluto",
+    "Floating on Neptune",
 ];
 function getAllBeatmaps(filter) {
-    var beatmaps = [];
-    for (var _i = 0, possible_songs_1 = possible_songs; _i < possible_songs_1.length; _i++) {
-        var song = possible_songs_1[_i];
+    return possible_songs.map(function (song) {
         filter.song = song;
-        var newMap = new beatmap_1.BeatMap(filter);
-        beatmaps.push(newMap.getBeatmapJson());
-    }
-    return beatmaps;
+        return new beatmap_1.BeatMap(filter).getBeatmapJson();
+    });
 }
 exports.getAllBeatmaps = getAllBeatmaps;

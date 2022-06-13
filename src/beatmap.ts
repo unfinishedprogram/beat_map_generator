@@ -1,18 +1,19 @@
 import { compileInfoJSON } from "./compileInfoJson";
 import { compileLevelJSON } from "./compileLevelJson";
-import { createNoteData } from "./level_obj/notedata";
-import { createWallData } from "./level_obj/walldata";
+import { createNoteData } from "./level_obj/noteData";
+import { createWallData } from "./level_obj/wallData";
 import { def_hand, def_note_type, def_rate, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
 
+export type CompiledBeatmap = ReturnType<typeof BeatMap.prototype.getBeatmapJson>
 export interface ILevelParams {
   [index:string]:unknown,
-  duration: 1|2|3,
+  duration: number,
   distribution: 1|2,
   hand: 'left' | 'right' | 'both' | 'split'
   rate: number,
-  rhythm: 1,
+  rhythm: number,
   target0: boolean,
   target1: boolean,
   target2: boolean,
@@ -70,7 +71,6 @@ export class BeatMap{
     }
 
     this.enabled_walls = def_walls(level_params);
-    console.log("Enabled walls", this.enabled_walls);
 
     this.enabled_hands = def_hand(level_params.hand)
     this.duration = level_params.duration;
@@ -125,6 +125,9 @@ export class BeatMap{
 
   addWall(walls:WallData[], position: 0 | 1 | 2){
     walls.push(createWallData(this.current_len_in_bars * this.rate + this.getRhythmOffset(), position, 1))
+    if(this.rhythm == 3 && this.rate > 3){  
+      this.current_len_in_bars++;
+    }
     this.current_len_in_bars++;
   }
 

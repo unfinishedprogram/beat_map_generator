@@ -31,7 +31,6 @@ export const def_note_position = (param: number) => {
 }
 
 export const def_walls = (params:ILevelParams): (0|1|2)[] => {
-  console.log("Wall created at ")
   let walls:(0|1|2)[] = [];
   if (params.wallLeft) walls.push(0); // Left
   if (params.wallTop) walls.push(1); // Top

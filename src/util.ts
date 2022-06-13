@@ -1,5 +1,3 @@
-
-
 export function shuffleArray(array: any[]) {
   let currentIndex = array.length;
   let randomIndex = 0;
@@ -11,17 +9,6 @@ export function shuffleArray(array: any[]) {
     [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
   }
   return arr;
-}
-
-export function test(
-  print: string,
-  test: boolean,
-  pass?: Function,
-  fail?: Function) {
-  console.log(print, test)
-  if (test) {
-    if (pass) pass();
-  } else if (fail) fail();
 }
 
 const archiver = require('archiver');

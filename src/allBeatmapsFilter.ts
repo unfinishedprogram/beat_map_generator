@@ -3,18 +3,18 @@ import { ILevelParams } from "./beatmap";
 
 const possible_songs = [
 	"Dancing on Venus",
-	"Lightning on Jupiter",
-	"Sunset on Mars",
-	"Surfing on the Moon"
+	"Flying on Jupiter",
+	"Dreaming on Mars",
+	"Surfing on the Moon",
+	"Jumping on Jupiter",
+	"Playing on Pluto",
+	"Floating on Neptune",
 ];
 
 
 export function getAllBeatmaps(filter:ILevelParams){
-	let beatmaps:unknown[] = [];
-	for(let song of possible_songs){
+	return possible_songs.map(song => {
 		filter.song = song;
-		let newMap = new BeatMap(filter);
-		beatmaps.push(newMap.getBeatmapJson());
-	}
-	return beatmaps;
+		return new BeatMap(filter).getBeatmapJson();
+	})
 }

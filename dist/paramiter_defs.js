@@ -28,7 +28,6 @@ exports.def_note_position = function (param) {
     return notePositions[param];
 };
 exports.def_walls = function (params) {
-    console.log("Wall created at ");
     var walls = [];
     if (params.wallLeft)
         walls.push(0); // Left

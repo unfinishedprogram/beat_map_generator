@@ -23,16 +23,6 @@ function shuffleArray(array) {
     return arr;
 }
 exports.shuffleArray = shuffleArray;
-function test(print, test, pass, fail) {
-    console.log(print, test);
-    if (test) {
-        if (pass)
-            pass();
-    }
-    else if (fail)
-        fail();
-}
-exports.test = test;
 var archiver = require('archiver');
 var fs_1 = __importDefault(require("fs"));
 function zipDirectory(source, out) {
