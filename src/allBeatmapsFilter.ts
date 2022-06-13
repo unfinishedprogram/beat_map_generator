@@ -1,5 +1,5 @@
 import { BeatMap } from "./beatmap";
-import { ILevelPerams } from "./beatmap";
+import { ILevelParams } from "./beatmap";
 
 const possible_songs = [
 	"Dancing on Venus",
@@ -9,7 +9,7 @@ const possible_songs = [
 ];
 
 
-export function getAllBeatmaps(filter:ILevelPerams){
+export function getAllBeatmaps(filter:ILevelParams){
 	let beatmaps:unknown[] = [];
 	for(let song of possible_songs){
 		filter.song = song;

@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function CompileInfoJSON(beatmap) {
+function compileInfoJSON(beatmap) {
     return {
         "_version": "2.0.0",
         "_songName": beatmap.song,
-        "_songSubName": "",
-        "_songAuthorName": "",
-        "_levelAuthorName": "",
+        "_songSubName": "-",
+        "_genre": "-",
+        "_songAuthorName": "-",
+        "_levelAuthorName": "-",
         "_beatsPerMinute": 100,
         "songDuration": beatmap.duration,
         "_songTimeOffset": 0,
@@ -66,4 +67,4 @@ function CompileInfoJSON(beatmap) {
         ]
     };
 }
-exports.CompileInfoJSON = CompileInfoJSON;
+exports.compileInfoJSON = compileInfoJSON;

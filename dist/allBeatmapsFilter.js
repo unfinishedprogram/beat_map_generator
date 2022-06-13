@@ -1,7 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var beatmap_1 = require("./beatmap");
-var possible_songs = ["song1", "song2"];
+var possible_songs = [
+    "Dancing on Venus",
+    "Lightning on Jupiter",
+    "Sunset on Mars",
+    "Surfing on the Moon"
+];
 function getAllBeatmaps(filter) {
     var beatmaps = [];
     for (var _i = 0, possible_songs_1 = possible_songs; _i < possible_songs_1.length; _i++) {

@@ -1,5 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var notePositions = [
+    [0, 2], [1, 2], [2, 2],
+    [3, 2], [0, 1], [3, 1],
+    [0, 0], [1, 0], [2, 0],
+    [3, 0], [1, 1], [2, 1]
+];
 // Rate defines the number of beats between each note given a rate preset
 exports.def_rate = function (param) {
     switch (param) {
@@ -18,32 +24,17 @@ exports.def_targets = function (param) {
             posList.push(i);
     return posList;
 };
-// Defines the notes in game position given there binary index
 exports.def_note_position = function (param) {
-    switch (param) {
-        case 0: return [0, 2];
-        case 1: return [1, 2];
-        case 2: return [2, 2];
-        case 3: return [3, 2];
-        case 4: return [0, 1];
-        case 5: return [3, 1];
-        case 6: return [0, 0];
-        case 7: return [1, 0];
-        case 8: return [2, 0];
-        case 9: return [3, 0];
-        case 10: return [1, 1];
-        case 11: return [2, 1];
-        default: return [0, 0];
-    }
+    return notePositions[param];
 };
-// Defines a list of enabled wall indexes from a binary string of length 3
-exports.def_walls = function (top, left, right) {
+exports.def_walls = function (params) {
+    console.log("Wall created at ");
     var walls = [];
-    if (left)
+    if (params.wallLeft)
         walls.push(0); // Left
-    if (top)
+    if (params.wallTop)
         walls.push(1); // Top
-    if (right)
+    if (params.wallRight)
         walls.push(2); // Right
     return walls;
 };

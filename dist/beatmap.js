@@ -19,24 +19,25 @@ var paramiter_defs_1 = require("./paramiter_defs");
 var util_1 = require("./util");
 var RATIO = 0.8;
 var BeatMap = /** @class */ (function () {
-    function BeatMap(level_perams) {
+    function BeatMap(level_params) {
         this.notes = [];
         this.walls = [];
-        this.file_path = level_perams.song;
-        this.song = level_perams.song;
-        this.rate = paramiter_defs_1.def_rate(level_perams.rate);
+        this.file_path = level_params.song;
+        this.song = level_params.song;
+        this.rate = paramiter_defs_1.def_rate(level_params.rate);
         this.enabled_targets = [];
         for (var i = 0; i < 12; i++) {
-            if (level_perams[("target" + i)])
+            if (level_params[("target" + i)])
                 this.enabled_targets.push(i);
         }
-        this.enabled_walls = paramiter_defs_1.def_walls(level_perams.wallTop, level_perams.wallLeft, level_perams.wallRight);
-        this.enabled_hands = paramiter_defs_1.def_hand(level_perams.hand);
-        this.duration = level_perams.duration;
-        this.distribution = level_perams.distribution;
-        this.rhythm = level_perams.rhythm;
+        this.enabled_walls = paramiter_defs_1.def_walls(level_params);
+        console.log("Enabled walls", this.enabled_walls);
+        this.enabled_hands = paramiter_defs_1.def_hand(level_params.hand);
+        this.duration = level_params.duration;
+        this.distribution = level_params.distribution;
+        this.rhythm = level_params.rhythm;
         this.len_in_beats = Math.floor(100 * (this.duration / 60));
-        this.len_in_bars = Math.floor(this.len_in_beats / this.rate);
+        this.len_in_bars = Math.floor(this.len_in_beats / this.rate) - 1;
         this.shuffled_note_positions = [];
         this.shuffled_wall_positions = [];
         this.current_len_in_bars = 1; // Set a starting point for buffer
@@ -86,23 +87,16 @@ var BeatMap = /** @class */ (function () {
         return this.shuffled_note_positions.pop();
     };
     BeatMap.prototype.getNextWallPosition = function () {
-        if (!this.shuffled_note_positions.length) {
-            this.shuffled_note_positions = util_1.shuffleArray(this.enabled_walls);
+        if (!this.shuffled_wall_positions.length) {
+            this.shuffled_wall_positions = util_1.shuffleArray(this.enabled_walls);
         }
-        return this.shuffled_note_positions.pop();
+        return this.shuffled_wall_positions.pop();
     };
     BeatMap.prototype.getRhythmOffset = function () {
         return (this.rhythm == 3) ? (Math.random() * this.rate) - this.rate / 2 : 0;
     };
     BeatMap.prototype.getBeatmapJson = function () {
-        var compiled = __assign(__assign(__assign({}, compileLevelJson_1.compileLevelJSON(this, this.notes, this.walls)), compileInfoJson_1.CompileInfoJSON(this)), { id: this.file_path, songName: this.song });
-        return compiled;
-        return {
-            level: compileLevelJson_1.compileLevelJSON(this, this.notes, this.walls),
-            info: compileInfoJson_1.CompileInfoJSON(this),
-            id: this.file_path,
-            songName: this.song,
-        };
+        return __assign(__assign(__assign({}, compileLevelJson_1.compileLevelJSON(this, this.notes, this.walls)), compileInfoJson_1.compileInfoJSON(this)), { id: this.file_path, songName: this.song });
     };
     return BeatMap;
 }());

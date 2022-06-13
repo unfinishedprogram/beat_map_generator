@@ -1,3 +1,5 @@
+import { ILevelParams } from "./beatmap";
+
 const notePositions = [
   [0, 2],[1, 2],[2, 2],
   [3, 2],[0, 1],[3, 1],
@@ -24,19 +26,16 @@ export const def_targets = (param: string): number[] => {
   return posList;
 }
 
-// Defines the notes in game position given there binary index
-
 export const def_note_position = (param: number) => {
-  console.log("Note Requested at", param,  notePositions[param])
-    return notePositions[param] as [0 | 1 | 2 | 3, 0 | 1 | 2];
+  return notePositions[param] as [0 | 1 | 2 | 3, 0 | 1 | 2];
 }
 
-// Defines a list of enabled wall indexes from a binary string of length 3
-export const def_walls = (top:boolean, left:boolean, right:boolean): (0|1|2)[] => {
+export const def_walls = (params:ILevelParams): (0|1|2)[] => {
+  console.log("Wall created at ")
   let walls:(0|1|2)[] = [];
-  if (top) walls.push(0); // Top
-  if (left) walls.push(1); // Left
-  if (right) walls.push(2); // Right
+  if (params.wallLeft) walls.push(0); // Left
+  if (params.wallTop) walls.push(1); // Top
+  if (params.wallRight) walls.push(2); // Right
   return walls;
 }
 

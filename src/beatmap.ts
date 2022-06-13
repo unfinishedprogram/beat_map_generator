@@ -1,12 +1,12 @@
 import { compileInfoJSON } from "./compileInfoJson";
 import { compileLevelJSON } from "./compileLevelJson";
-import { fileNameToParams, IStrLevelParams } from "./ILevelParams";
 import { createNoteData } from "./level_obj/notedata";
 import { createWallData } from "./level_obj/walldata";
-import { def_distribution, def_duration, def_hand, def_note_type, def_rate, def_targets, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
+import { def_hand, def_note_type, def_rate, def_walls, HANDS, NoteData, WallData } from "./paramiter_defs";
 import { shuffleArray } from "./util";
 
-export interface ILevelPerams {
+
+export interface ILevelParams {
   [index:string]:unknown,
   duration: 1|2|3,
   distribution: 1|2,
@@ -56,29 +56,26 @@ export class BeatMap{
   notes: NoteData[];
   walls: WallData[];
 
-  constructor(level_perams: ILevelPerams) {
+  constructor(level_params: ILevelParams) {
     this.notes = [];
     this.walls = [];
-    this.file_path = level_perams.song;
-    this.song = level_perams.song;
+    this.file_path = level_params.song;
+    this.song = level_params.song;
 
-    this.rate = def_rate(level_perams.rate);
+    this.rate = def_rate(level_params.rate);
     this.enabled_targets = [];
     for(let i = 0; i < 12; i++){
-      if(level_perams[("target" + i)])
+      if(level_params[("target" + i)])
         this.enabled_targets.push(i)
     }
-    console.log(this.enabled_targets);
 
-    this.enabled_walls = def_walls(
-      level_perams.wallTop, 
-      level_perams.wallLeft, 
-      level_perams.wallRight)
-      
-    this.enabled_hands = def_hand(level_perams.hand)
-    this.duration = level_perams.duration;
-    this.distribution = level_perams.distribution;
-    this.rhythm = level_perams.rhythm;
+    this.enabled_walls = def_walls(level_params);
+    console.log("Enabled walls", this.enabled_walls);
+
+    this.enabled_hands = def_hand(level_params.hand)
+    this.duration = level_params.duration;
+    this.distribution = level_params.distribution;
+    this.rhythm = level_params.rhythm;
     this.len_in_beats = Math.floor(100 * (this.duration / 60))
     this.len_in_bars = Math.floor(this.len_in_beats / this.rate) - 1
     
